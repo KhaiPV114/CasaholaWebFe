@@ -1,172 +1,171 @@
 .quiz-container {
-    min-height: 100vh;
-    background: #FF9422;
-    padding: 40px 20px;
-    min-width: 100vw;
-  }
-  
+  min-height: 100vh;
+  background: #FF9422;
+  padding: 40px 20px;
+  min-width: 100vw;
+}
 
-  .quiz-header {
-    text-align: center;
-    color: white;
-    margin-bottom: 40px;
-  
-    h1 {
-      font-size: 28px;
-      margin-bottom: 16px;
-    }
-  
-    p {
-      font-size: 16px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-  }
-  
 
-  .question-card {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    max-width: 800px;
-    margin: 0 auto 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
+.quiz-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
 
-  .quiz-button {
-    width: 250px;
-    height: 45px;
-    border-radius: 25px;
+  h1 {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  p {
     font-size: 16px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    color: #ff8c00;
-    border: none;
-    
-    &:hover {
-      background: #f0f0f0 !important;
-      color: #ff8c00 !important;
-    }
-  
-    &:focus {
-      background: #f0f0f0 !important;
-      color: #ff8c00 !important;
-    }
-    
-    &:disabled {
-      background: #ddd !important; /* Màu xám khi bị disable */
-      color: #aaa !important;
-      cursor: not-allowed;
-    }
-  }
-  
-
-  .pag-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    color: #ff8c00;
-    border: none;
-    
-    &:hover {
-      background: #f0f0f0 !important;
-      color: #ff8c00 !important;
-    }
-  
-    &:focus {
-      background: #f0f0f0 !important;
-      color: #ff8c00 !important;
-    }
-    
-    &:disabled {
-      background: #ddd !important; /* Màu xám khi bị disable */
-      color: #aaa !important;
-      cursor: not-allowed;
-    }
-  }
-  
-
-  .radio-container {
-    margin-top: 20px;
-  
-    .ant-radio-group {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-    }
-  
-    .radio-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      width: 100px;
-    }
-  
-    .ant-radio-wrapper {
-      margin-right: 0;
-      padding: 0;
-      
-      .ant-radio {
-        margin-right: 0;
-        margin-bottom: 8px;
-      }
-  
-      .ant-radio-inner {
-        width: 20px;
-        height: 20px;
-        background-color: #d9d9d9;
-        border: none;
-        border-radius: 50%;
-        
-        &::after {
-          display: none;
-        }
-      }
-  
-      &.ant-radio-wrapper-checked .ant-radio-inner {
-        background-color: #ff8c00;
-      }
-    }
-  
-    .radio-item:nth-child(3) .ant-radio-inner { 
-      transform: scale(2);
-    }
-  
-    .radio-item:nth-child(2) .ant-radio-inner,
-    .radio-item:nth-child(4) .ant-radio-inner {
-      transform: scale(3);
-    }
-  
-    .radio-item:nth-child(1) .ant-radio-inner,
-    .radio-item:nth-child(5) .ant-radio-inner {
-      transform: scale(4);
-    }
-  
-    .radio-label {
-      font-size: 14px;
-      text-align: center;
-      max-width: 100px;
-      line-height: 1.2;
-      margin-top: 8px;
-    }
-  }
-  
-
-  .button-container {
     max-width: 800px;
-    margin: 20px auto;
+    margin: 0 auto;
+  }
+}
+
+
+.question-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.quiz-button {
+  width: 250px;
+  height: 45px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  background: white;
+  color: #ff8c00;
+  border: none;
+  
+  &:hover {
+    background: #f0f0f0 !important;
+    color: #ff8c00 !important;
+  }
+
+  &:focus {
+    background: #f0f0f0 !important;
+    color: #ff8c00 !important;
+  }
+  
+  &:disabled {
+    background: #ddd !important; /* Màu xám khi bị disable */
+    color: #aaa !important;
+    cursor: not-allowed;
+  }
+}
+
+
+.pag-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: #ff8c00;
+  border: none;
+  
+  &:hover {
+    background: #f0f0f0 !important;
+    color: #ff8c00 !important;
+  }
+
+  &:focus {
+    background: #f0f0f0 !important;
+    color: #ff8c00 !important;
+  }
+  
+  &:disabled {
+    background: #ddd !important; /* Màu xám khi bị disable */
+    color: #aaa !important;
+    cursor: not-allowed;
+  }
+}
+
+
+.radio-container {
+  margin-top: 20px;
+
+  .ant-radio-group {
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    gap: 20px;
-  
-    @media (max-width: 600px) {
-      flex-direction: column;
-      align-items: center;
+  }
+
+  .radio-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100px;
+  }
+
+  .ant-radio-wrapper {
+    margin-right: 0;
+    padding: 0;
+    
+    .ant-radio {
+      margin-right: 0;
+      margin-bottom: 8px;
+    }
+
+    .ant-radio-inner {
+      width: 20px;
+      height: 20px;
+      background-color: #d9d9d9;
+      border: none;
+      border-radius: 50%;
+      
+      &::after {
+        display: none;
+      }
+    }
+
+    &.ant-radio-wrapper-checked .ant-radio-inner {
+      background-color: #ff8c00;
     }
   }
+
+  .radio-item:nth-child(3) .ant-radio-inner { 
+    transform: scale(2);
+  }
+
+  .radio-item:nth-child(2) .ant-radio-inner,
+  .radio-item:nth-child(4) .ant-radio-inner {
+    transform: scale(3);
+  }
+
+  .radio-item:nth-child(1) .ant-radio-inner,
+  .radio-item:nth-child(5) .ant-radio-inner {
+    transform: scale(4);
+  }
+
+  .radio-label {
+    font-size: 14px;
+    text-align: center;
+    max-width: 100px;
+    line-height: 1.2;
+    margin-top: 8px;
+  }
+}
+
+
+.button-container-x {
+  max-width: 800px;
+  margin: 10vh auto;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 50px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}

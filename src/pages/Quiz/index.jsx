@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Radio, Button, Progress } from 'antd';
+import { Radio, Button, Progress, Form } from 'antd';
 import './quiz.scss';
 
 const questionsData = [
@@ -67,7 +67,7 @@ const Quiz = () => {
   const progress = (Object.keys(answers).length / totalQuestions) * 100;
 
   return (
-    <div className="quiz-container">
+    <Form className="quiz-container">
       <div className="quiz-header">
         <h1 style={{ fontSize: 30, fontFamily: 'Anton', fontWeight: '800', transform: 'scaleY(1.3)', marginTop: 50 }}>TRẮC NGHIỆM ENNEAGRAM MIỄN PHÍ</h1>
         <p>
@@ -125,19 +125,15 @@ const Quiz = () => {
           Trang tiếp
         </Button>
       </div>
-      <div className="button-container">
+      <div className="button-container-x">
         <Button className="quiz-button" onClick={() => window.location.reload()}>
           LÀM LẠI TRẮC NGHIỆM
         </Button>
-        <Button
-          className="quiz-button"
-          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-          disabled={currentPage === totalPages}
-        >
-          TIẾP TỤC
+        <Button className="quiz-button" type="submit">
+          GỬI KẾT QUẢ
         </Button>
       </div>
-    </div>
+    </Form>
   );
 };
 
