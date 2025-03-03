@@ -1,0 +1,69 @@
+// 🌟 Biến màu sắc toàn cục
+:root {
+    --primary-color: #0099FF;
+    --secondary-color: #FF7F00;
+    --secondary-gradient-toRight: linear-gradient(to right, #F95B01, #FFA101);
+    --secondary-gradient-toRight-hover: linear-gradient(to right, #FF7300, #FFC400);
+    --secondary-gradient-toLeft: linear-gradient(to left, #F95B01, #FFA101);
+    --secondary-gradient-toBottom: linear-gradient(to bottom, #F95B01, #FFA101);
+    --secondary-gradient-toTop: linear-gradient(to top, #F95B01, #FFA101);
+    --background-color: #F5F5F5;
+    --text-color: #333;
+    --white-color: #FFFFFF;
+    --black-color: #000000;
+    --card-border-color: #E0E0E0;
+}
+
+// 🌍 Reset CSS
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+}
+
+// 🌟 Ứng dụng màu sắc
+.main-layout {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+// 🎨 Button sử dụng gradient
+.button {
+    background: var(--secondary-gradient);
+    color: var(--white-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+        background: linear-gradient(to right, #FFAA00, #FF7F00); // Đổi chiều màu khi hover
+    }
+}
+
+// 🎬 Animation đổi màu động (nếu cần)
+@keyframes colorChange {
+    0% {
+        background-color: #FF7F00;
+    }
+
+    50% {
+        background-color: #FFAA00;
+    }
+
+    100% {
+        background-color: #FF7F00;
+    }
+}
+
+.animated-bg {
+    animation: colorChange 3s infinite alternate;
+}

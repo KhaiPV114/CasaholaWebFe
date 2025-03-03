@@ -1,0 +1,139 @@
+// TestCharacter.scss
+
+.test-character {
+    background-color: #fff;
+    min-height: 100vh;
+  
+    .image-placeholder {
+        width: 100%; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; 
+        img {
+            max-width: 100%; 
+            max-height: 100%; 
+            object-fit: contain; 
+        }
+  
+      &__text {
+        font-size: 24px;
+        color: #666;
+        font-weight: bold;
+      }
+  
+      &--sidebar {
+        height: 50vh;
+      }
+    }
+  
+    .content-section {
+      padding: 0 15vh 5vh 15vh;
+      text-align: center;
+  
+      .info-row {
+        margin-bottom: 40px;
+  
+        .main-content {
+          text-align: left;
+  
+          .main-title {
+            color: #FA6400;
+            margin-bottom: 16px;
+            font-family: 'Anton', sans-serif;
+            font-weight: bold;
+          }
+  
+          .stats-row {
+            margin-bottom: 3vw;
+  
+            .stat-block {
+              &:first-child {
+                margin-right: 5vw;
+              }
+  
+              .stat-number {
+                font-size: 32px;
+                color: #000000;
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+  
+                &--blue {
+                  color: #7DBEFF;
+                }
+              }
+            }
+          }
+  
+          .description {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 5vh;
+            width: 80%;
+            color: #000000;
+          }
+  
+          .cta-button {
+            background-color: #FA6400;
+            border-color: #FA6400;
+            font-weight: bold;
+            width: 50%;
+            border-radius: 30px;
+            padding: 20px;
+  
+            &:hover {
+              background-color: darken(#FA6400, 10%);
+              border-color: darken(#FA6400, 10%);
+            }
+          }
+        }
+      }
+    }
+  
+    .personality-section {
+      padding: 0 15vh 15vh 15vh;
+  
+      .section-title {
+        margin-top: 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-family: 'Inter', sans-serif;
+      }
+  
+      .personality-grid {
+        margin-top: 30px;
+        justify-content: center;
+  
+        &--second-row {
+          margin-top: 50px;
+        }
+  
+        .personality-item {
+          text-align: center;
+  
+          .personality-circle {
+            max-width: 100%;  
+            max-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; 
+        }
+        
+        .personality-circle img {
+            max-width: 100%;  
+            max-height: 100%;
+            object-fit: contain; 
+        }
+  
+          .personality-label {
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+          }
+        }
+      }
+    }
+  }
