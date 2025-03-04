@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Table, Button,  Input, Space,  Popconfirm, Modal, Form, Select, Card, Tag, Typography, Row, Col} from 'antd';
+import { Table, Button, Input, Space, Popconfirm, Modal, Form, Select, Card, Tag, Typography, Row, Col } from 'antd';
 import { SearchOutlined, UserAddOutlined, EditOutlined, DeleteOutlined, FilterOutlined, ReloadOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
@@ -19,10 +19,10 @@ const UserManagement = () => {
   useEffect(() => {
     setTimeout(() => {
       const mockData = [
-        { id: 1, name: 'Nguyễn Văn A', email: 'nguyenvana@example.com', role: 'admin', status: 'active', lastLogin: '2025-03-02 10:30:00' },
-        { id: 2, name: 'Trần Thị B', email: 'tranthib@example.com', role: 'user', status: 'active', lastLogin: '2025-03-01 15:45:00' },
-        { id: 3, name: 'Lê Văn C', email: 'levanc@example.com', role: 'manager', status: 'inactive', lastLogin: '2025-02-28 09:20:00' },
-        { id: 4, name: 'Phạm Thị D', email: 'phamthid@example.com', role: 'user', status: 'blocked', lastLogin: '2025-02-25 11:10:00' },
+        { id: 1, name: 'Nguyễn Văn A', email: 'nguyenvana@example.com', role: 'admin', status: 'active', package: "35k", lastLogin: '2025-03-02 10:30:00' },
+        { id: 2, name: 'Trần Thị B', email: 'tranthib@example.com', role: 'user', status: 'active', package: "", lastLogin: '2025-03-01 15:45:00' },
+        { id: 3, name: 'Lê Văn C', email: 'levanc@example.com', role: 'manager', status: 'inactive', package: "50k", lastLogin: '2025-02-28 09:20:00' },
+        { id: 4, name: 'Phạm Thị D', email: 'phamthid@example.com', role: 'user', status: 'blocked', package: "35k", lastLogin: '2025-02-25 11:10:00' },
       ];
       setUsers(mockData);
       setLoading(false);
@@ -45,6 +45,7 @@ const UserManagement = () => {
       email: record.email,
       role: record.role,
       status: record.status,
+      package: record.package
     });
     setIsModalVisible(true);
   };
@@ -88,6 +89,7 @@ const UserManagement = () => {
       dataIndex: 'email',
       key: 'email',
     },
+
     {
       title: 'Vai trò',
       dataIndex: 'role',
@@ -123,6 +125,22 @@ const UserManagement = () => {
       onFilter: (value, record) => record.status.indexOf(value) === 0,
     },
     {
+      title: 'Gói đăng ký',
+      dataIndex: 'package',
+      key: 'package',
+      render: (packageValue) => {
+        if (!packageValue) return <Tag color="gray">Chưa đăng ký</Tag>; // Hiển thị nếu không có gói
+        let color = packageValue === "35k" ? 'green' : 'blue';
+        return <Tag color={color}>{packageValue}</Tag>;
+      },
+      filters: [
+        { text: '35k', value: '35k' },
+        { text: '50k', value: '50k' },
+        { text: 'Chưa đăng ký', value: '' },
+      ],
+      onFilter: (value, record) => record.package === value,
+    },
+    {
       title: 'Đăng nhập gần đây',
       dataIndex: 'lastLogin',
       key: 'lastLogin',
@@ -133,22 +151,22 @@ const UserManagement = () => {
       key: 'actions',
       render: (_, record) => (
         <Space size="small">
-          <Button 
-            type="primary" 
-            icon={<EditOutlined />} 
-            size="small" 
+          <Button
+            type="primary"
+            icon={<EditOutlined />}
+            size="small"
             onClick={() => showEditModal(record)}
           />
           <Popconfirm
             title="Bạn có chắc chắn muốn xóa người dùng này?"
             okText="Có"
             cancelText="Không"
-            onConfirm={() => {/* Xử lý xóa */}}
+            onConfirm={() => {/* Xử lý xóa */ }}
           >
-            <Button 
-              danger 
-              icon={<DeleteOutlined />} 
-              size="small" 
+            <Button
+              danger
+              icon={<DeleteOutlined />}
+              size="small"
             />
           </Popconfirm>
         </Space>
@@ -157,23 +175,23 @@ const UserManagement = () => {
   ];
 
   return (
-    <div style={{ padding: '24px' , width: '100%' }}>
+    <div style={{ padding: '24px', width: '100%' }}>
       <Card>
         <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
           <Col>
             <Title level={4}>Quản lý người dùng</Title>
           </Col>
           <Col>
-            <Button 
-              type="primary" 
-              icon={<UserAddOutlined />} 
+            <Button
+              type="primary"
+              icon={<UserAddOutlined />}
               onClick={showAddModal}
             >
               Thêm người dùng
             </Button>
           </Col>
         </Row>
-        
+
         <Row style={{ marginBottom: 16 }}>
           <Col span={8}>
             <Input
@@ -190,15 +208,15 @@ const UserManagement = () => {
             </Space>
           </Col>
         </Row>
-        
+
         <Table
           columns={columns}
           dataSource={filteredUsers}
           rowKey="id"
           loading={loading}
-          pagination={{ 
-            defaultPageSize: 10, 
-            showSizeChanger: true, 
+          pagination={{
+            defaultPageSize: 10,
+            showSizeChanger: true,
             pageSizeOptions: ['10', '20', '50'],
             showTotal: (total, range) => `${range[0]}-${range[1]} của ${total} người dùng`
           }}
@@ -214,9 +232,9 @@ const UserManagement = () => {
           <Button key="back" onClick={handleCancel}>
             Hủy
           </Button>,
-          <Button 
-            key="submit" 
-            type="primary" 
+          <Button
+            key="submit"
+            type="primary"
             onClick={() => form.submit()}
           >
             {editingUserId ? 'Cập nhật' : 'Thêm mới'}
@@ -291,6 +309,23 @@ const UserManagement = () => {
               <Option value="blocked">Blocked</Option>
             </Select>
           </Form.Item>
+
+          <Form.Item
+            name="package"
+            label="Gói đăng ký"
+            rules={[
+              {
+                required: true,
+                message: 'Vui lòng chọn gói!',
+              },
+            ]}
+          >
+            <Select placeholder="Chọn gói đăng ký">
+              <Option value="35k">35k</Option>
+              <Option value="50k">50k</Option>
+            </Select>
+          </Form.Item>
+
 
           {!editingUserId && (
             <>

@@ -113,7 +113,7 @@ const Guess = () => {
           THÊM KẾT QUẢ
         </Button>
         <Button className="reset-button" onClick={handleReset}>
-          QUAY LẠI
+          TRANG CHỦ
         </Button>
       </div>
     </div>

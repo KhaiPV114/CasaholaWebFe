@@ -50,7 +50,7 @@ const Register = () => {
         maskClosable={false} // Prevent closing when clicking outside
       >
         <div style={{ textAlign: "center", marginBottom: 20 }}>
-          <div style={{ width: 50, height: 50, borderRadius: "50%", background: "#ccc", margin: "auto" }} />
+          {/* <div style={{ width: 50, height: 50, borderRadius: "50%", background: "#ccc", margin: "auto" }} /> */}
           <Typography.Title level={3}>Register</Typography.Title>
         </div>
 

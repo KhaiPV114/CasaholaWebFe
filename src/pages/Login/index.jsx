@@ -44,7 +44,7 @@ const Login = () => {
         <div style={{ textAlign: "center", marginBottom: 20 }}>
           <div style={{ width: 50, height: 50, borderRadius: "50%", background: "#ccc", margin: "auto" }} />
           <Typography.Title level={3}>Log in</Typography.Title>
-          <Typography.Text>Don't have an account? <a href="#">Sign up</a></Typography.Text>
+          <Typography.Text>Don't have an account? <a href="/register">Sign up</a></Typography.Text>
         </div>
 
         <Button block icon={<GoogleOutlined />} style={{ marginBottom: 10 }}>

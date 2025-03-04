@@ -15,6 +15,11 @@ import RoommatePreferenceForm from '@/pages/RoomPreference';
 import ResetPassword from '@/pages/ResetPassword';
 import Register from '@/pages/Register';
 import YourPreferenceForm from '@/pages/YourPreference';
+import ChatRoom from '@/pages/ChatRoom';
+import UserManagement from '@/pages/UserManagement';
+import UpdateCriteriaPage from '@/pages/UpdateCriteria';
+import ForgotPassword from '@/pages/ForgotPassword';
+import ChangePassword from '@/pages/ChangePassword';
 
 const AppRoutes = () => (
     <BrowserRouter>
@@ -31,9 +36,13 @@ const AppRoutes = () => (
                 <Route path="package" element={<Package />} />
                 <Route path="roompreference" element={<RoommatePreferenceForm />} />
                 <Route path="yourpreference" element={<YourPreferenceForm />} />
+                <Route path="chatroom" element={<ChatRoom />} />
+                <Route path="usermanagement" element={<UserManagement />} />
+                <Route path="updatecriteria" element={<UpdateCriteriaPage />} />
 
             </Route>
-
+            <Route path="forgotpassword" element={<ForgotPassword />} />
+            <Route path="changepassword" element={<ChangePassword />} />
             <Route path="register" element={<Register />} />
             <Route path='/login' element={<Login />} />
             <Route path='/reset-password' element={<ResetPassword />} />
