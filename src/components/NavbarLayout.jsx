@@ -1,7 +1,7 @@
 import { AuthContext } from "@/context/useContext";
 import { UseNotification } from "@/context/useNotification";
 import { BarChartOutlined, DatabaseOutlined, FileSearchOutlined, HomeOutlined, LoginOutlined, LogoutOutlined, MessageOutlined } from "@ant-design/icons";
-import { Menu, notification } from "antd";
+import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,12 +12,6 @@ const NavbarLayout = () => {
     const [isLogined, setIsLogined] = useState(false);
     const {showNofitication} = useContext(UseNotification)
     const navigate = useNavigate()
-
-    const openNotificationWithIcon = (type, msg) => {
-        notification[type]({
-          message: msg,
-        });
-      };
 
     useEffect(() => {
         if (user) {
@@ -30,8 +24,10 @@ const NavbarLayout = () => {
     const handlerSignOut = () => {
         signOut();
         setIsLogined(false);
-        openNotificationWithIcon("success", "Logout successfull!")
+        showNofitication("success","Đăng xuất thành công")
     }
+
+
     return (
         <Sider
             trigger={null}
@@ -49,7 +45,7 @@ const NavbarLayout = () => {
                 <Menu.Item key="data" icon={<DatabaseOutlined />}>{!collapsed && "Dữ liệu tính cách"}</Menu.Item>
                 {
                     isLogined
-                    ? <Menu.Item onClick={handlerSignOut} key="logout" icon={<LogoutOutlined /> }>{!collapsed && "Đăng Xuat"}</Menu.Item>
+                    ? <Menu.Item onClick={handlerSignOut} key="logout" icon={<LogoutOutlined /> }>{!collapsed && "Đăng Xuất"}</Menu.Item>
                         : <Menu.Item onClick={() => navigate("/login")} key="login" icon={<LoginOutlined />}>{!collapsed && "Đăng Nhập"}</Menu.Item>
                         
                 }

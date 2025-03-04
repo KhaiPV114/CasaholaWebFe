@@ -1,5 +1,7 @@
+import { client } from "@/api";
 import { BASE_URL } from "@/config/1";
 import { AuthContext } from "@/context/useContext";
+import { UseNotification } from "@/context/useNotification";
 import { EyeInvisibleOutlined, EyeTwoTone, GoogleOutlined } from "@ant-design/icons";
 import { Button, Divider, Form, Input, Modal, Typography, notification } from "antd";
 import axios from "axios";
@@ -9,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [visible, setVisible] = useState(true);
   const {signIn} = useContext(AuthContext) 
+  const {showNotification} = useContext(UseNotification)
 
   const navigate = useNavigate()
 
@@ -18,18 +21,16 @@ const Login = () => {
     });
   };
 
-  const onFinish = (values) => {
-    console.log("ok", values);
-    
-    axios.post(`${BASE_URL}auth/login/local`,values)
+  const onFinish = async (values) => {
+    client.post('auth/login/local',values)
     .then((res) => {
       const {user, accessToken, refreshToken} = res.data;
       signIn(user, accessToken, refreshToken);
-      openNotificationWithIcon('success', "Login successful!")
+      showNotification('success', "Đăng nhập thành công!")
       navigate("/yourpreference")
     })
-    .catch((err) => {
-      openNotificationWithIcon('error', "err")
+    .catch(() => {
+      showNotification('error', "Tài khoản mật khẩu không chính xác")
     })
   }
   return (
