@@ -4,7 +4,6 @@ import { AuthContext } from "@/context/useContext";
 import { UseNotification } from "@/context/useNotification";
 import { EyeInvisibleOutlined, EyeTwoTone, GoogleOutlined } from "@ant-design/icons";
 import { Button, Divider, Form, Input, Modal, Typography, notification } from "antd";
-import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,12 +13,6 @@ const Login = () => {
   const {showNotification} = useContext(UseNotification)
 
   const navigate = useNavigate()
-
-  const openNotificationWithIcon = (type, msg) => {
-    notification[type]({
-      message: msg,
-    });
-  };
 
   const onFinish = async (values) => {
     client.post('auth/login/local',values)
@@ -45,7 +38,7 @@ const Login = () => {
         <div style={{ textAlign: "center", marginBottom: 20 }}>
           <div style={{ width: 50, height: 50, borderRadius: "50%", background: "#ccc", margin: "auto" }} />
           <Typography.Title level={3}>Log in</Typography.Title>
-          <Typography.Text>Don't have an account? <a href="#">Sign up</a></Typography.Text>
+          <Typography.Text>Don't have an account? <a href="/register">Sign up</a></Typography.Text>
         </div>
 
         <Button block icon={<GoogleOutlined />} style={{ marginBottom: 10 }}>

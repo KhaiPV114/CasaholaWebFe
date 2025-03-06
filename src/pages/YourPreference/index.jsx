@@ -60,7 +60,6 @@ const YourPreferenceForm = () => {
     sharingWay: "",
   });
 
-  const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState({
     purpose: [
       // MỤC TIÊU
@@ -182,7 +181,9 @@ const YourPreferenceForm = () => {
   });
 
   useEffect(() => {
-    console.log(user);
+    if(!user) {
+      navigate("/login")
+    }
     clientToken.get('criterias')
     .then((res) => {
       if(res.data?.criteria) {
@@ -239,12 +240,19 @@ const YourPreferenceForm = () => {
     return true;
   };
 
-  const onFinish = (values) => {
+  const onFinish = () => {
     console.log("Values: ", preferences);
+    if (!validateForm()) return;
+    clientToken.post('/criterias', preferences)
+    .then(() => {
+      navigate("/")
+    })
+    .catch(() => {
+      
+    })
   };
 
   const handleGoBack = () => {
-    console.log("Quay lại trang quiz");
     navigate("/quiz");
   };
 
@@ -303,7 +311,7 @@ const YourPreferenceForm = () => {
             className="next-button"
             shape="round"
             size="large"
-            loading={loading}
+            loading={false}
             htmlType="submit"
           >
             XÁC NHẬN
