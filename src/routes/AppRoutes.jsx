@@ -1,5 +1,11 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import {
+  BrowserRouter,
+  data,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import MainLayout from "@/layouts/MainLayout";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
@@ -21,8 +27,27 @@ import UpdateCriteriaPage from "@/pages/UpdateCriteria";
 import ForgotPassword from "@/pages/ForgotPassword";
 import ChangePassword from "@/pages/ChangePassword";
 import { AuthContext } from "@/context/useContext";
+import { client } from "@/api";
+import { VnPayReturn } from "@/pages/vnpay";
 
-const AppRoutes = () => (
+const AppRoutes = () => {
+  const { user, signIn, signOut } = useContext(AuthContext);
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!user && token) {
+      client
+        .post("auth/account-remember", { token })
+        .then((res) => {
+          const { user, accessToken, refreshToken } = res.data;
+          signIn(user, accessToken, refreshToken);
+        })
+        .catch(() => {
+          signOut();
+        });
+    }
+  }, []);
+
+  return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
@@ -32,7 +57,7 @@ const AppRoutes = () => (
           <Route path="testcharacter" element={<TestCharacter />} />
           <Route path="result-page" element={<ResultPage />} />
           <Route path="quiz" element={<Quiz />} />
-          <Route path="guess-friend" element={<Guess />} />
+          {/* <Route path="guess-friend" element={<Guess />} /> */}
           <Route path="payment" element={<PaymentPage />} />
           <Route path="package" element={<Package />} />
           <Route path="roompreference" element={<RoommatePreferenceForm />} />
@@ -46,8 +71,10 @@ const AppRoutes = () => (
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="vnpay" element={<VnPayReturn />} />
       </Routes>
     </BrowserRouter>
   );
+};
 
 export default AppRoutes;
