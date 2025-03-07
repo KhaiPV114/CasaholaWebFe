@@ -38,6 +38,8 @@ const Home = () => (
             </Col>
         </Row>
 
+        <div className={s.divider}></div>
+
         <Row className={s.featureSection}>
             <Col span={24} className={s['featureSection-info']}>
                 <Title level={1} className={s.title}>TÍNH NĂNG TÌM BẠN Ở GHÉP CỦA CASAHOLA</Title>
@@ -58,7 +60,7 @@ const Home = () => (
             </Col>
         </Row>
 
-        <Row className={s.topSearch}>
+        {/* <Row className={s.topSearch}>
             <Col span={24}>
                 <Title level={1} className={s.topTitle}>TOP BẠN TRỌ ĐANG TÌM KIẾM</Title>
                 <Row className={s.profileUser}>
@@ -88,7 +90,7 @@ const Home = () => (
                 </Row>
 
             </Col>
-        </Row>
+        </Row> */}
         <div className={s.divider}></div>
 
 

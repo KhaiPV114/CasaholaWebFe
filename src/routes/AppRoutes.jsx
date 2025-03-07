@@ -20,6 +20,7 @@ import UserManagement from '@/pages/UserManagement';
 import UpdateCriteriaPage from '@/pages/UpdateCriteria';
 import ForgotPassword from '@/pages/ForgotPassword';
 import ChangePassword from '@/pages/ChangePassword';
+import UserEditForm from '@/pages/UserInfor';
 
 const AppRoutes = () => (
     <BrowserRouter>
@@ -35,10 +36,13 @@ const AppRoutes = () => (
                 <Route path="payment" element={<PaymentPage />} />
                 <Route path="package" element={<Package />} />
                 <Route path="roompreference" element={<RoommatePreferenceForm />} />
-                <Route path="yourpreference" element={<YourPreferenceForm />} />
                 <Route path="chatroom" element={<ChatRoom />} />
                 <Route path="usermanagement" element={<UserManagement />} />
                 <Route path="updatecriteria" element={<UpdateCriteriaPage />} />
+                <Route path="userinfo" element={<UserEditForm />} />
+                <Route path="yourpreference" element={<YourPreferenceForm />} />
+
+
 
             </Route>
             <Route path="forgotpassword" element={<ForgotPassword />} />

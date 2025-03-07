@@ -55,7 +55,7 @@ const NavbarLayout = () => {
                     <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
                 </Menu.Item>
                 <Menu.Item key="data" icon={<DatabaseOutlined />}>
-                    <NavLink to="/yourpreference">{!collapsed && "Dữ liệu tính cách"}</NavLink>
+                    <NavLink to="">{!collapsed && "Dữ liệu tính cách"}</NavLink>
                 </Menu.Item>
                 {
                     isLogined
