@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Radio, Button, Progress, Form } from 'antd';
 import './quiz.scss';
+import { AuthContext } from './../../context/useContext';
+import { useNavigate } from 'react-router-dom';
 
 const questionsData = [
   {
@@ -56,6 +58,15 @@ const Quiz = () => {
   const startIndex = (currentPage - 1) * questionsPerPage;
   const endIndex = Math.min(startIndex + questionsPerPage, totalQuestions);
   const currentQuestions = questionsData.slice(startIndex, endIndex);
+
+  const {user} = useContext(AuthContext); 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!user) {
+      navigate("/login")
+    }
+  })
 
   const handleAnswer = (questionId, value) => {
     setAnswers(prev => ({

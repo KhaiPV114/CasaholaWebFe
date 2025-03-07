@@ -1,16 +1,23 @@
 import { clientToken } from "@/api";
 import { AuthContext } from "@/context/useContext";
 import { Button, Col, Image, Row, Typography } from "antd";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import "./package.scss";
+import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 
 const Package = () => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
 
   const handleRedirect = (packageType) => {
-    console.log(user);
     clientToken
       .get("vnpay/payment", {
         params: {

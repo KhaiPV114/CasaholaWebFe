@@ -101,7 +101,7 @@ const Login = () => {
           </Form.Item>
 
           <Typography.Text style={{ float: "right" }}>
-            <a href="/reset-password">Forget your password?</a>
+            <a href="/forgot-password">Forget your password?</a>
           </Typography.Text>
 
           <Button

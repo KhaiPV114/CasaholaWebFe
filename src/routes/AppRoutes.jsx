@@ -64,14 +64,17 @@ const AppRoutes = () => {
           <Route path="yourpreference" element={<YourPreferenceForm />} />
           <Route path="chatroom" element={<ChatRoom />} />
           <Route path="usermanagement" element={<UserManagement />} />
-          <Route path="updatecriteria" element={<UpdateCriteriaPage />} />
+          <Route path="update-criteria" element={<UpdateCriteriaPage />} />
         </Route>
-        <Route path="forgotpassword" element={<ForgotPassword />} />
-        <Route path="changepassword" element={<ChangePassword />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+        <Route path="change-password" element={<ChangePassword />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="vnpay" element={<VnPayReturn />} />
+        <Route path="/403" element={<>Bi dan</>} />
+        <Route path="/401" element={<>Dang nhap di</>} />
+        <Route path="/500" element={<>He thong bi loi</>} />
       </Routes>
     </BrowserRouter>
   );

@@ -191,7 +191,7 @@ const YourPreferenceForm = () => {
       }
     })
     .catch((err) => {
-      console.log(err)
+      navigate("/500")
     });
   }, []);
 
@@ -241,7 +241,6 @@ const YourPreferenceForm = () => {
   };
 
   const onFinish = () => {
-    console.log("Values: ", preferences);
     if (!validateForm()) return;
     clientToken.post('/criterias', preferences)
     .then(() => {

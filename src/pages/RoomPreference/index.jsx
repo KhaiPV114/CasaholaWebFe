@@ -14,6 +14,7 @@ import "./roompreference.scss";
 import { clientToken } from "@/api";
 import Guess from "../Suggest_friend";
 import { UseNotification } from "@/context/useNotification";
+import { AuthContext } from "@/context/useContext";
 
 const { Title, Paragraph } = Typography;
 
@@ -52,6 +53,13 @@ const RoomPreferenceForm = () => {
   const [form] = Form.useForm();
   const [matchPersonality, setMatchPersonality] = useState(false); // ✅ Thêm checkbox trạng thái
   const { showNotification } = useContext(UseNotification);
+  const {user} = useContext(AuthContext);
+
+  useEffect(() => {
+    if(!user) {
+      navigate('/login')
+    }
+  })
   const [preferences, setPreferences] = useState({
     purpose: "",
     budget: "",

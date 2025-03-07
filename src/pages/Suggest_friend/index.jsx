@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card, Button, Row, Col, Typography, Tooltip, Image } from "antd";
 import {
   CloseOutlined,
@@ -125,6 +125,12 @@ export const Guess = (data) => {
   );
   const [showAdditional, setShowAdditional] = useState(false);
   const [displayCount, setDisplayCount] = useState(4);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
 
   const handleAddMoreResults = () => {
     const newDisplayCount = displayCount + 4;
