@@ -25,14 +25,16 @@ const Guess = () => {
   return (
     <div className="guess-container">
       <div className="guess-header">
-        <Title level={2} style={{ color: 'white', margin: '0' }}>GỢI Ý BẠN TRỢ</Title>
-        <Paragraph style={{ color: 'white', marginTop: '8px' }}>
+        <Title level={2} style={{ color: "white", margin: "0" }}>
+          GỢI Ý BẠN TRỢ
+        </Title>
+        <Paragraph style={{ color: "white", marginTop: "8px" }}>
           Chọn bất kỳ gợi ý bạn trợ phù hợp với bạn
         </Paragraph>
       </div>
-      
+
       <Row gutter={[16, 16]} className="profile-row">
-        {profiles.map(profile => (
+        {profiles.map((profile) => (
           <Col xs={24} sm={12} md={8} lg={6} key={profile.id}>
             <Card
               className="profile-card"

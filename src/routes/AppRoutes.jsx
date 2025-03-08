@@ -21,8 +21,28 @@ import UpdateCriteriaPage from '@/pages/UpdateCriteria';
 import ForgotPassword from '@/pages/ForgotPassword';
 import ChangePassword from '@/pages/ChangePassword';
 import UserEditForm from '@/pages/UserInfor';
+import { AuthContext } from "@/context/useContext";
+import { client } from "@/api";
+import { VnPayReturn } from "@/pages/vnpay";
 
-const AppRoutes = () => (
+const AppRoutes = () => {
+  const { user, signIn, signOut } = useContext(AuthContext);
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!user && token) {
+      client
+        .post("auth/account-remember", { token })
+        .then((res) => {
+          const { user, accessToken, refreshToken } = res.data;
+          signIn(user, accessToken, refreshToken);
+        })
+        .catch(() => {
+          signOut();
+        });
+    }
+  }, []);
+
+  return (
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<MainLayout />}>
@@ -32,7 +52,7 @@ const AppRoutes = () => (
                 <Route path="testcharacter" element={<TestCharacter />} />
                 <Route path="result-page" element={<ResultPage />} />
                 <Route path="quiz" element={<Quiz />}/>
-                <Route path="guess-friend" element={<Guess />} />
+                {/* <Route path="guess-friend" element={<Guess />} /> */}
                 <Route path="payment" element={<PaymentPage />} />
                 <Route path="package" element={<Package />} />
                 <Route path="roompreference" element={<RoommatePreferenceForm />} />
@@ -45,14 +65,19 @@ const AppRoutes = () => (
 
 
             </Route>
-            <Route path="forgotpassword" element={<ForgotPassword />} />
-            <Route path="changepassword" element={<ChangePassword />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="change-password" element={<ChangePassword />} />
             <Route path="register" element={<Register />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/reset-password' element={<ResetPassword />} />
+            <Route path="login" element={<Login />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="vnpay" element={<VnPayReturn />} />
+            <Route path="/403" element={<>Bi dan</>} />
+            <Route path="/401" element={<>Dang nhap di</>} />
+            <Route path="/500" element={<>He thong bi loi</>} />
 
         </Routes>
     </BrowserRouter>
-);
+  );
+};
 
 export default AppRoutes;

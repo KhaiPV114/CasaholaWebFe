@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card, Button, Select, Form, Typography, Row, Col } from "antd";
 import { LeftOutlined, HomeOutlined, SaveOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "@/context/useContext";
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -28,6 +29,13 @@ const UpdateCriteriaPage = () => {
 
   // State lưu dữ liệu đã chọn
   const [selectedValues, setSelectedValues] = useState({});
+  const {user} = useContext(AuthContext);
+
+  useEffect(() => {
+    if(!user) {
+      navigate("/login")
+    }
+  })
 
   useEffect(() => {
     // Lấy dữ liệu từ localStorage nếu có

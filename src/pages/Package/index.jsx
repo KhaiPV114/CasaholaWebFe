@@ -1,64 +1,84 @@
-import React from 'react';
-import { Button, Row, Col, Typography, Image } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import './package.scss';
+import { clientToken } from "@/api";
+import { AuthContext } from "@/context/useContext";
+import { Button, Col, Image, Row, Typography } from "antd";
+import { useContext, useEffect } from "react";
+import "./package.scss";
+import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 
 const Package = () => {
-    const navigate = useNavigate(); 
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const handleRedirect = (packageType) => {
-        navigate(`/payment?package=${packageType}`); 
-    };
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
 
-    return (
-        <div className="package-container">
-            <Title level={2} className="package-title">
-                MỞ KHÓA TÍNH NĂNG NHẮN TIN
-            </Title>
+  const handleRedirect = (packageType) => {
+    clientToken
+      .get("vnpay/payment", {
+        params: {
+          //   orderInfo: user.id,
+          amount: Number(packageType),
+          orderId: user.id,
+        },
+      })
+      .then((res) => {
+        window.location.href = res.data;
+      });
+  };
 
-            <Row gutter={[60, 20]} justify="center">
-                <Col xs={24} sm={12} md={10} lg={8}>
-                    <div 
-                        className="image-container" 
-                        onClick={() => handleRedirect('gold')}
-                        style={{ cursor: 'pointer' }} 
-                    >
-                        <Image
-                            src="./FA6002 (14).png"
-                            preview={false}
-                            className="package-image"
-                        />
-                    </div>
-                </Col>
+  return (
+    <div className="package-container">
+      <Title level={2} className="package-title">
+        MỞ KHÓA TÍNH NĂNG NHẮN TIN
+      </Title>
 
-                <Col xs={24} sm={12} md={10} lg={8}>
-                    <div 
-                        className="image-container" 
-                        onClick={() => handleRedirect('premium')} 
-                        style={{ cursor: 'pointer' }} 
-                    >
-                        <Image
-                            src="./FA6002 (13).png"
-                            preview={false}
-                            className="package-image"
-                        />
-                    </div>
-                </Col>
-            </Row>
+      <Row gutter={[60, 20]} justify="center">
+        <Col xs={24} sm={12} md={10} lg={8}>
+          <div
+            className="image-container"
+            onClick={() => handleRedirect("35000")}
+            style={{ cursor: "pointer" }}
+          >
+            <Image
+              src="./FA6002 (14).png"
+              preview={false}
+              className="package-image"
+            />
+          </div>
+        </Col>
 
-            <div className="button-container">
-                <Button
-                    type="primary"
-                    size="large"
-                    className="return-button"
-                >
-                    QUAY LẠI KẾT QUẢ TÌM TRỌ
-                </Button>
-            </div>
-        </div>
-    );
+        <Col xs={24} sm={12} md={10} lg={8}>
+          <div
+            className="image-container"
+            onClick={() => handleRedirect("50000")}
+            style={{ cursor: "pointer" }}
+          >
+            <Image
+              src="./FA6002 (13).png"
+              preview={false}
+              className="package-image"
+            />
+          </div>
+        </Col>
+      </Row>
+
+      <div className="button-container">
+        <Button
+          type="primary"
+          size="large"
+          className="return-button"
+          onClick={() => window.history.back()}
+        >
+          QUAY LẠI KẾT QUẢ TÌM TRỌ
+        </Button>
+      </div>
+    </div>
+  );
 };
 
 export default Package;
