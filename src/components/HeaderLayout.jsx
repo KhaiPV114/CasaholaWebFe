@@ -14,13 +14,19 @@ export default function HeaderLayout() {
   const profileMenu = (
     <Menu>
       <Menu.Item key="profile" icon={<UserOutlined />}>
-        Hồ sơ cá nhân
+        <Link to={"/userinfo"}>
+          Hồ sơ cá nhân
+        </Link>
       </Menu.Item>
       <Menu.Item key="listcriteria" icon={<OrderedListOutlined />} >
-        Sửa tiêu chí cá nhân
+        <Link to={"/yourpreference"}>
+          Sửa tiêu chí cá nhân
+        </Link>
       </Menu.Item>
       <Menu.Item key="logout" icon={<LogoutOutlined />} danger>
-        Đăng xuất
+        <Link>
+          Đăng xuất
+        </Link>
       </Menu.Item>
     </Menu>
   );
