@@ -152,8 +152,73 @@ const Home = () => {
             />
           </Col>
         </Row>
-      </div>
+
+        <div className={s.divider}></div>
+
+        <Row className={s.featureSection}>
+            <Col span={24} className={s['featureSection-info']}>
+                <Title level={1} className={s.title}>TÍNH NĂNG TÌM BẠN Ở GHÉP CỦA CASAHOLA</Title>
+                <Paragraph className={s.description}>
+                    CASA HOLA dựa trên tính cách và nhu cầu cá nhân giúp bạn dễ dàng trong việc tìm kiếm <strong>BẠN Ở GHÉP</strong> trực tuyến!
+                </Paragraph>
+                <Row className={s.card}>
+                    <Col span={8}>
+                        <CustomCardHome url="./TestCharacter.png" title="TRẮC NGHIỆM TÍNH CÁCH MIỄN PHÍ" />
+                    </Col>
+                    <Col span={8}>
+                        <CustomCardHome url="./Feature2.png" title="XÁC ĐỊNH YẾU TỐ TRONG BẢN ĐỒ SAO CÁ NHÂN" />
+                    </Col>
+                    <Col span={8}>
+                        <CustomCardHome url="./Feature3.png" title="LỌC NHU CẦU, GHÉP TÌM NHANH CHÓNG" />
+                    </Col>
+                </Row>
+            </Col>
+        </Row>
+
+        {/* <Row className={s.topSearch}>
+            <Col span={24}>
+                <Title level={1} className={s.topTitle}>TOP BẠN TRỌ ĐANG TÌM KIẾM</Title>
+                <Row className={s.profileUser}>
+
+                    <Col>
+                        <CustomCardUser image="./FA6002 (13).png"
+                            name="NGUYEN VAN A"
+                            school="FPTU, MC"
+                            location="Thôn 3, Tân Xã"
+                            description="Nhóm 4 - Người cá tính\nMọc Sư Tử, Sun Bảo Bình, Moon Nhân Mã\nNấu ăn, âm nhạc, game,... Xem thêm" />
+                    </Col>
+                    <Col >
+                        <CustomCardUser image="./FA6002 (13).png"
+                            name="NGUYEN VAN A"
+                            school="FPTU, MC"
+                            location="Thôn 3, Tân Xã"
+                            description="Nhóm 4 - Người cá tính\nMọc Sư Tử, Sun Bảo Bình, Moon Nhân Mã\nNấu ăn, âm nhạc, game,... Xem thêm" />
+                    </Col>
+                    <Col >
+                        <CustomCardUser image="./FA6002 (13).png"
+                            name="NGUYEN VAN A"
+                            school="FPTU, MC"
+                            location="Thôn 3, Tân Xã"
+                            description="Nhóm 4 - Người cá tính\nMọc Sư Tử, Sun Bảo Bình, Moon Nhân Mã\nNấu ăn, âm nhạc, game,... Xem thêm" />
+                    </Col>
+
+                </Row>
+
+            </Col>
+        </Row> */}
+        <div className={s.divider}></div>
+
+
+        <div className={s.cta}>
+            <Col><h1 className={s.title}>ROOMATE TÌM KHÔNG RA, CÓ CASAHOLA!</h1></Col>
+            <Col><button className={s.button}>TRẢI NGHIỆM NGAY</button>    </Col>
+            <Row>
+                <Col span={6}>                <img src="./Penguin.png" style={{ height: '200px' }} alt="Penguin" />
+                </Col>
+            </Row>
+        </div>
+        </div>
     </Content>
   );
-};
+}
 export default Home;
