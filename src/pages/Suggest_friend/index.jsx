@@ -1,14 +1,14 @@
-import React, { useContext, useState } from 'react';
-import { Card, Button, Row, Col, Typography, Tooltip, Modal, Image } from 'antd';
-import { CloseOutlined, HeartFilled, StarOutlined, MessageOutlined } from '@ant-design/icons';
-import './suggest.scss';
 import { AuthContext } from '@/context/authContext';
+import { CloseOutlined, HeartFilled, MessageOutlined, StarOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Modal, Row, Tooltip, Typography } from 'antd';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './suggest.scss';
 
 const { Title, Paragraph } = Typography;
 
 const Guess = ({friend}) => {
-  const [profiles, setProfiles] = useState(friend.slice(0, 4));
+  const [profiles] = useState(friend.slice(0, 4));
   const [selectedProfile, setSelectedProfile] = useState(null);
   const {user } = useContext(AuthContext);
   const navigate = useNavigate()
@@ -22,7 +22,7 @@ const Guess = ({friend}) => {
   };
 
   const chatNow = () => {
-      if(user.packageType == "NONE") {
+      if(user.packageType === "NONE") {
         navigate("/package")
       }else {
         navigate("/chatroom")

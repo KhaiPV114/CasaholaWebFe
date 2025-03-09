@@ -65,11 +65,10 @@ const Quiz = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("quzi", user)
     if(!user) {
       navigate("/login")
     }
-  },[])
+  },[user, navigate])
 
   const handleAnswer = (questionId, value) => {
     setAnswers(prev => ({

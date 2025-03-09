@@ -21,7 +21,7 @@ import ResultPage from "@/pages/TestResult";
 import UpdateCriteriaPage from "@/pages/UpdateCriteria";
 import UserEditForm from "@/pages/UserInfor";
 import UserManagement from "@/pages/UserManagement";
-import { VnPayReturn } from "@/pages/Vnpay";
+import VnPayReturn from "@/pages/vnpay";
 import YourPreferenceForm from "@/pages/YourPreference";
 import { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -45,13 +45,14 @@ const AppRoutes = () => {
           signOut();
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!user) return;
 
     const sh = (data) => {
-      if (data.id == user.id) return;
+      if (data.id === user.id) return;
       showNotification("success", "Bạn có 1 tin nhắn mới!");
     };
 
@@ -60,7 +61,7 @@ const AppRoutes = () => {
     return () => {
       socket.off(`tb${user.id}`, sh);
     };
-  }, [socket, user]);
+  }, [ user, showNotification]);
 
   return (
     <BrowserRouter>

@@ -21,6 +21,7 @@ const ResetPassword = () => {
         }
       })
       .catch(() => navigate("/403"));
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onFinish = (values) => {
