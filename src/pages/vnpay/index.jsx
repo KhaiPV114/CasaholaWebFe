@@ -4,7 +4,7 @@ import { NotificationContext } from "@/context/notificationContext";
 import { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const VnPayReturn = () => {
+const VnPayReturn = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { signIn, signOut } = useContext(AuthContext);
@@ -44,3 +44,5 @@ export const VnPayReturn = () => {
 
   return <div></div>;
 };
+
+export default VnPayReturn;
