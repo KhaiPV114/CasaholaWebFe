@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Layout, Input, Space, Flex, Avatar, Badge, Dropdown, Menu } from "antd";
 import { BellOutlined, UserOutlined, SearchOutlined, LogoutOutlined, OrderedListOutlined } from "@ant-design/icons";
 import "antd/dist/reset.css";
-import { AuthContext } from "@/context/useContext";
+import { AuthContext } from "@/context/authContext";
 import { Link } from "react-router-dom";
 
 const { Header } = Layout;

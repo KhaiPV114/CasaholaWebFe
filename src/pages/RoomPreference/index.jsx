@@ -1,20 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  Card,
-  Typography,
-  Row,
-  Col,
-  Button,
-  message,
-  Form,
-  Checkbox,
-} from "antd";
-import { useNavigate } from "react-router-dom";
-import "./roompreference.scss";
 import { clientToken } from "@/api";
+import { AuthContext } from "@/context/authContext";
+import { NotificationContext } from "@/context/notificationContext";
+import { Button, Card, Checkbox, Col, Form, Row, Typography } from "antd";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Guess from "../Suggest_friend";
-import { UseNotification } from "@/context/useNotification";
-import { AuthContext } from "@/context/useContext";
+import "./roompreference.scss";
 
 const { Title, Paragraph } = Typography;
 
@@ -52,14 +43,14 @@ const RoomPreferenceForm = () => {
   const [friend, setFriend] = useState();
   const [form] = Form.useForm();
   const [matchPersonality, setMatchPersonality] = useState(false); // ✅ Thêm checkbox trạng thái
-  const { showNotification } = useContext(UseNotification);
-  const {user} = useContext(AuthContext);
+  const { showNotification } = useContext(NotificationContext);
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    if(!user) {
-      navigate('/login')
+    if (!user) {
+      navigate("/login");
     }
-  })
+  });
   const [preferences, setPreferences] = useState({
     purpose: "",
     budget: "",
@@ -197,10 +188,10 @@ const RoomPreferenceForm = () => {
     });
 
     clientToken.put("/criterias/find-room-match", data).then((res) => {
-      console.log(res.data);
       if (res.data.length > 0) {
         setFriend(res.data);
         setShow(true);
+        window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
         showNotification("warning", "Không có người nào!");
       }

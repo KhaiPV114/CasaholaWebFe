@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, Button, Row, Col, Typography, Tooltip, Modal, Image } from 'antd';
 import { CloseOutlined, HeartFilled, StarOutlined, MessageOutlined } from '@ant-design/icons';
 import './suggest.scss';
+import { AuthContext } from '@/context/authContext';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
 
-const initialProfiles = [
-  { id: 1, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến', images: ['./guess_test.jpg', './guess_test2.jpg'] },
-  { id: 2, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến', images: ['./guess_test.jpg', './guess_test2.jpg'] }
-];
-
-const Guess = () => {
-  const [profiles, setProfiles] = useState(initialProfiles.slice(0, 4));
+const Guess = ({friend}) => {
+  const [profiles, setProfiles] = useState(friend.slice(0, 4));
   const [selectedProfile, setSelectedProfile] = useState(null);
+  const {user } = useContext(AuthContext);
+  const navigate = useNavigate()
 
   const openProfileDetails = (profile) => {
     setSelectedProfile(profile);
@@ -21,6 +20,14 @@ const Guess = () => {
   const closeProfileDetails = () => {
     setSelectedProfile(null);
   };
+
+  const chatNow = () => {
+      if(user.packageType == "NONE") {
+        navigate("/package")
+      }else {
+        navigate("/chatroom")
+      }
+  }
 
   return (
     <div className="guess-container">
@@ -38,7 +45,9 @@ const Guess = () => {
           <Col xs={24} sm={12} md={8} lg={6} key={profile.id}>
             <Card
               className="profile-card"
-              cover={<img className="profile-image" src={profile.images[0]} alt="Profile" />}
+              style={{height : '100px'}}
+              // cover={<img className="profile-image" src={profile.profileImage || './guess-test2.jpg'} alt="Profile" />}
+              cover={<img className="profile-image" src={'./guess_test.jpg'} alt="Profile" />}
               bordered={false}
             >
               <Title level={5} className="profile-name">{profile.name} • {profile.school}</Title>
@@ -67,16 +76,16 @@ const Guess = () => {
           footer={null}
           width={600}
         >
-          <Image.PreviewGroup>
+          {/* <Image.PreviewGroup>
             {selectedProfile.images.map((img, index) => (
               <Image key={index} width={200} src={img} alt="Profile" />
             ))}
-          </Image.PreviewGroup>
-          <Paragraph>{selectedProfile.location}</Paragraph>
+          </Image.PreviewGroup> */}
+          <Paragraph>{selectedProfile.za}</Paragraph>
           <Paragraph>{selectedProfile.workplace}</Paragraph>
           <Paragraph>Địa chỉ: {selectedProfile.address}</Paragraph>
           <Paragraph>Hoạt động: {selectedProfile.online}</Paragraph>
-          <Button type="primary" icon={<MessageOutlined />}>TRÒ CHUYỆN NGAY</Button>
+          <Button type="primary" onClick={chatNow} icon={<MessageOutlined />}>TRÒ CHUYỆN NGAY</Button>
         </Modal>
       )}
     </div>

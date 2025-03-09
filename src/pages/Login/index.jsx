@@ -1,7 +1,6 @@
 import { client } from "@/api";
-import { BASE_URL } from "@/config/1";
-import { AuthContext } from "@/context/useContext";
-import { UseNotification } from "@/context/useNotification";
+import { AuthContext } from "@/context/authContext";
+import { NotificationContext } from "@/context/notificationContext";
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
@@ -13,8 +12,7 @@ import {
   Form,
   Input,
   Modal,
-  Typography,
-  notification,
+  Typography
 } from "antd";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [visible, setVisible] = useState(true);
   const { signIn } = useContext(AuthContext);
-  const { showNotification } = useContext(UseNotification);
+  const { showNotification } = useContext(NotificationContext);
 
   const navigate = useNavigate();
 

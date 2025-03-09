@@ -1,5 +1,5 @@
 import { clientToken } from "@/api";
-import { AuthContext } from "@/context/useContext";
+import { AuthContext } from "@/context/authContext";
 import { Button, Col, Image, Row, Typography } from "antd";
 import { useContext, useEffect } from "react";
 import "./package.scss";
@@ -15,7 +15,7 @@ const Package = () => {
     if (!user) {
       navigate("/login");
     }
-  });
+  },[]);
 
   const handleRedirect = (packageType) => {
     clientToken
