@@ -32,13 +32,13 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         password: ${{ secrets.VPS_PASSWORD }}
         source: "build/*"  # Thư mục chứa file build
-        target: "/var/www/html"  # Đường dẫn thư mục web trên VPS
+        target: "actions-runner/_work/CasaholaWebFe/CasaholaWebFe"  # Đường dẫn thư mục web trên VPS
 
-    - name: Restart Nginx (optional)
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        password: ${{ secrets.VPS_PASSWORD }}
-        script: |
-          sudo systemctl restart nginx
+    # - name: Restart Nginx (optional)
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.VPS_HOST }}
+    #     username: ${{ secrets.VPS_USER }}
+    #     password: ${{ secrets.VPS_PASSWORD }}
+    #     script: |
+    #       sudo systemctl restart nginx
