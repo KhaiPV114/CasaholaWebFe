@@ -1,6 +1,5 @@
 import { clientToken } from "@/api";
-import { NotificationContext } from "@/context/notificationContext";
-import { socket, WebSocketContext } from "@/context/socketContext";
+import { socket } from "@/context/socketContext";
 import {
   GifOutlined,
   PictureOutlined,
@@ -9,19 +8,18 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Input } from "antd";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const Msg = ({ sendUid, receiveUid }) => {
   const [messages, setMessages] = useState([]);
-//   const { socket } = useContext(WebSocketContext);
+  //   const { socket } = useContext(WebSocketContext);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
-  const { showNotification } = useContext(NotificationContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (receiveUid == 0) {
+    if (receiveUid === 0) {
       return;
     }
 
@@ -40,6 +38,7 @@ export const Msg = ({ sendUid, receiveUid }) => {
       .catch(() => {
         navigate("/500");
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [receiveUid]);
 
   useEffect(() => {
@@ -59,6 +58,7 @@ export const Msg = ({ sendUid, receiveUid }) => {
     return () => {
       socket.off(`${sendUid}`, handleNewMessage);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
   const handleSend = () => {

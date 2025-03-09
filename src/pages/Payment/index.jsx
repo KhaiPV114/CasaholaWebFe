@@ -1,12 +1,9 @@
-import React from 'react';
-import { Button, Typography, Image } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Button, Image, Typography } from 'antd';
 import './payment.scss';
 
 const { Title } = Typography;
 
 const Payment = () => {
-    const navigate = useNavigate(); 
 
     return (
         <div className="payment-container">

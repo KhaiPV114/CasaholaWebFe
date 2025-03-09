@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
-import { Layout, Input, Space, Flex, Avatar, Badge, Dropdown, Menu } from "antd";
-import { BellOutlined, UserOutlined, SearchOutlined, LogoutOutlined, OrderedListOutlined } from "@ant-design/icons";
+import { BellOutlined, LogoutOutlined, OrderedListOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
+import { Avatar, Badge, Dropdown, Flex, Input, Layout, Menu, Space } from "antd";
 import "antd/dist/reset.css";
-import { AuthContext } from "@/context/authContext";
 import { Link } from "react-router-dom";
 
 const { Header } = Layout;
 
 export default function HeaderLayout() {
-  const { user } = useContext(AuthContext);
 
   // Menu cho Avatar (Hồ sơ cá nhân & Đăng xuất)
   const profileMenu = (
