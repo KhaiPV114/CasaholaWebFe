@@ -16,7 +16,7 @@ export default function HeaderLayout() {
         </Link>
       </Menu.Item>
       <Menu.Item key="listcriteria" icon={<OrderedListOutlined />} >
-        <Link to={"/yourpreference"}>
+        <Link to={"/updatecriteria"}>
           Sửa tiêu chí cá nhân
         </Link>
       </Menu.Item>

@@ -21,6 +21,7 @@ import ResultPage from "@/pages/TestResult";
 import UpdateCriteriaPage from "@/pages/UpdateCriteria";
 import UserEditForm from "@/pages/UserInfor";
 import UserManagement from "@/pages/UserManagement";
+import MatchedUsers from "@/pages/UserMatchedList";
 import VnPayReturn from "@/pages/vnpay";
 import YourPreferenceForm from "@/pages/YourPreference";
 import { useContext, useEffect } from "react";
@@ -82,9 +83,11 @@ const AppRoutes = () => {
           <Route path="usermanagement" element={<UserManagement />} />
           <Route path="updatecriteria" element={<UpdateCriteriaPage />} />
           <Route path="userinfo" element={<UserEditForm />} />
-          <Route path="yourpreference" element={<YourPreferenceForm />} />
+          <Route path="usermatchedlist" element={<MatchedUsers />} />
+
           {/* </Route> */}
         </Route>
+        <Route path="yourpreference" element={<YourPreferenceForm />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="change-password" element={<ChangePassword />} />
         <Route path="register" element={<Register />} />

@@ -1,17 +1,18 @@
 import { AuthContext } from '@/context/authContext';
 import { CloseOutlined, HeartFilled, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Modal, Row, Tooltip, Typography } from 'antd';
+import { Button, Card, Col, Modal, Row, Tooltip, Typography, Pagination } from 'antd';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './suggest.scss';
 
 const { Title, Paragraph } = Typography;
+const PAGE_SIZE = 4; // Số người hiển thị mỗi trang
 
-const Guess = ({friend}) => {
-  const [profiles] = useState(friend.slice(0, 4));
+const Guess = ({ friend }) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedProfile, setSelectedProfile] = useState(null);
-  const {user } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const openProfileDetails = (profile) => {
     setSelectedProfile(profile);
@@ -22,12 +23,16 @@ const Guess = ({friend}) => {
   };
 
   const chatNow = () => {
-      if(user.packageType === "NONE") {
-        navigate("/package")
-      }else {
-        navigate("/chatroom")
-      }
-  }
+    if (user.packageType === "NONE") {
+      navigate("/package");
+    } else {
+      navigate("/chatroom");
+    }
+  };
+
+  // Xác định dữ liệu trang hiện tại
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const paginatedProfiles = friend.slice(startIndex, startIndex + PAGE_SIZE);
 
   return (
     <div className="guess-container">
@@ -41,17 +46,17 @@ const Guess = ({friend}) => {
       </div>
 
       <Row gutter={[16, 16]} className="profile-row">
-        {profiles.map((profile) => (
+        {paginatedProfiles.map((profile) => (
           <Col xs={24} sm={12} md={8} lg={6} key={profile.id}>
             <Card
+              hoverable
               className="profile-card"
-              style={{height : '100px'}}
-              // cover={<img className="profile-image" src={profile.profileImage || './guess-test2.jpg'} alt="Profile" />}
-              cover={<img className="profile-image" src={'./guess_test.jpg'} alt="Profile" />}
+              style={{ height: "250px", transition: "transform 0.3s ease" }}
+              cover={<img className="profile-image" src={"./guess_test.jpg"} alt="Profile" />}
               bordered={false}
+              onClick={() => openProfileDetails(profile)}
             >
               <Title level={5} className="profile-name">{profile.name} • {profile.school}</Title>
-              <Button type="link" onClick={() => openProfileDetails(profile)}>Xem thêm</Button>
               <div className="action-buttons">
                 <Tooltip title="Từ chối">
                   <Button shape="circle" icon={<CloseOutlined />} className="reject-button" />
@@ -67,25 +72,32 @@ const Guess = ({friend}) => {
           </Col>
         ))}
       </Row>
-      
+
+      {/* Phân trang */}
+      <div className="pagination-container">
+        <Pagination
+          current={currentPage}
+          total={friend.length}
+          pageSize={PAGE_SIZE}
+          onChange={(page) => setCurrentPage(page)}
+        />
+      </div>
+
       {selectedProfile && (
         <Modal
-          visible={!!selectedProfile}
+          open={!!selectedProfile}
           title={selectedProfile.name}
           onCancel={closeProfileDetails}
           footer={null}
           width={600}
         >
-          {/* <Image.PreviewGroup>
-            {selectedProfile.images.map((img, index) => (
-              <Image key={index} width={200} src={img} alt="Profile" />
-            ))}
-          </Image.PreviewGroup> */}
           <Paragraph>{selectedProfile.za}</Paragraph>
           <Paragraph>{selectedProfile.workplace}</Paragraph>
           <Paragraph>Địa chỉ: {selectedProfile.address}</Paragraph>
           <Paragraph>Hoạt động: {selectedProfile.online}</Paragraph>
-          <Button type="primary" onClick={chatNow} icon={<MessageOutlined />}>TRÒ CHUYỆN NGAY</Button>
+          <Button type="primary" onClick={chatNow} icon={<MessageOutlined />}>
+            TRÒ CHUYỆN NGAY
+          </Button>
         </Modal>
       )}
     </div>

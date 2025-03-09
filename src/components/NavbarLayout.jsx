@@ -50,9 +50,9 @@ const NavbarLayout = () => {
                 <Menu.Item key="news" icon={<MessageOutlined />}>
                     <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
                 </Menu.Item>
-                <Menu.Item key="data" icon={<DatabaseOutlined />}>
+                {/* <Menu.Item key="data" icon={<DatabaseOutlined />}>
                     <NavLink to="/updatecriteria">{!collapsed && "Dữ liệu tính cách"}</NavLink>
-                </Menu.Item>
+                </Menu.Item> */}
                 {
                     isLogined
                         ? <Menu.Item onClick={handlerSignOut} key="logout" icon={<LogoutOutlined />}>{!collapsed && "Đăng Xuất"}</Menu.Item>

@@ -224,14 +224,8 @@ const YourPreferenceForm = () => {
               </Select>
             </Form.Item>
           ))}
-          <div className="action-buttons">
-            <Button
-              type="link"
-              className="title"
-              onClick={() => navigate("/quiz")}
-            >
-              LÀM TRẮC NGHIỆM TÍNH CÁCH
-            </Button>
+          <div className="action-buttons" style={{display:"flex", justifyContent:"center"}}>
+            
             <Button
               type="primary"
               className="confirm-button"
