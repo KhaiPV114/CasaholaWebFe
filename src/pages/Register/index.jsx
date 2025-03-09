@@ -1,18 +1,16 @@
-import { BASE_URL } from "@/config/1";
+import { client } from "@/api";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, DatePicker, Divider, Form, Input, Modal, notification, Radio, Typography } from "antd";
-import axios from "axios";
 import dayjs from 'dayjs';
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 const Register = () => {
   const [visible, setVisible] = useState(true);
 
-  const onChange = (date, dateString) => {
-    console.log(dayjs(date).format("YYYY/MM/DD")); // In ra định dạng mong muốn
-  };
+  const navigate = useNavigate()
 
   const openNotificationWithIcon = (type, msg) => {
     notification[type]({
@@ -26,19 +24,15 @@ const Register = () => {
     if (values.dob) {
       values.dob = dayjs(values.dob).format("YYYY/MM/DD"); // Định dạng ngày tháng
     }
-    console.log('Success:', values);
-    axios.post(`${BASE_URL}auth/register`, values)
+    client.post('auth/register', values)
     .then(() => {
-      openNotificationWithIcon('success', "ok")
+      openNotificationWithIcon('success', "Đăng ký thành công!!!")
+      navigate("/")
     })
     .catch((err) => {
-      console.log(err)
-      openNotificationWithIcon('error',"not ok")
+      openNotificationWithIcon('error',"Đăng ký thất bại!!!")
     })
   };
-
-
-
 
   return (
     <div style={{ backgroundColor: "#FA6400", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -50,7 +44,7 @@ const Register = () => {
         maskClosable={false} // Prevent closing when clicking outside
       >
         <div style={{ textAlign: "center", marginBottom: 20 }}>
-          <div style={{ width: 50, height: 50, borderRadius: "50%", background: "#ccc", margin: "auto" }} />
+          {/* <div style={{ width: 50, height: 50, borderRadius: "50%", background: "#ccc", margin: "auto" }} /> */}
           <Typography.Title level={3}>Register</Typography.Title>
         </div>
 
@@ -81,7 +75,7 @@ const Register = () => {
           <Form.Item label="Your date of birth" name="dob" rules={[{ required: true, message: "Please enter your dob!" }]}>
             <DatePicker
               format={dateFormat}
-              onChange={onChange}
+              // onChange={onChange}
             />
           </Form.Item>
 
