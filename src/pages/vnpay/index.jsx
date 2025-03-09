@@ -42,7 +42,7 @@ const VnPayReturn = () => {
       });
   }, []);
 
-  return <div></div>;
+  return <div>hiha</div>;
 };
 
 export default VnPayReturn;
