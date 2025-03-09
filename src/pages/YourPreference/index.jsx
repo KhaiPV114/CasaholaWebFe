@@ -191,6 +191,9 @@ const YourPreferenceForm = () => {
         .catch(() => {
           showNotification("error", "Đã có lỗi xảy ra!");
           navigate("/500");
+        })
+        .finally(() => {
+          setLoading(true);
         });
     }
   };

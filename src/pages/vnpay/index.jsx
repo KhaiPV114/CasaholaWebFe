@@ -40,6 +40,7 @@ const VnPayReturn = () => {
           });
         navigate("/");
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>hiha</div>;

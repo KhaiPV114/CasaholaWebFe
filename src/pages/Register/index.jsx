@@ -1,8 +1,6 @@
 import { client } from "@/api";
-import { BASE_URL } from "@/config/1";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, DatePicker, Divider, Form, Input, Modal, notification, Radio, Typography } from "antd";
-import axios from "axios";
 import dayjs from 'dayjs';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

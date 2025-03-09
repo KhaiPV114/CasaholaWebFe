@@ -14,11 +14,11 @@ import {
   Modal,
   Typography
 } from "antd";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [visible, setVisible] = useState(true);
+  // const [visible, setVisible] = useState(true);
   const { signIn } = useContext(AuthContext);
   const { showNotification } = useContext(NotificationContext);
 
@@ -48,7 +48,7 @@ const Login = () => {
       }}
     >
       <Modal
-        open={visible}
+        open={true}
         onCancel={() => navigate("/")}
         footer={null}
         centered
@@ -92,8 +92,8 @@ const Login = () => {
           >
             <Input.Password
               placeholder="Enter your password"
-              iconRender={(visible) =>
-                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              iconRender={() =>
+                true ? <EyeTwoTone /> : <EyeInvisibleOutlined />
               }
             />
           </Form.Item>

@@ -1,7 +1,7 @@
 import { clientToken } from "@/api";
 import { AuthContext } from "@/context/authContext";
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Input, Layout, Typography, message } from "antd";
+import { Avatar, Input, Layout, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Msg } from "./msg";
