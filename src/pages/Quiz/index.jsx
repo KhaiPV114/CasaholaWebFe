@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Radio, Button, Progress, Form } from 'antd';
 import './quiz.scss';
-import { AuthContext } from './../../context/useContext';
+import { AuthContext } from '../../context/authContext';
 import { useNavigate } from 'react-router-dom';
+import { NotificationContext } from '@/context/notificationContext';
 
 const questionsData = [
   {
@@ -60,13 +61,15 @@ const Quiz = () => {
   const currentQuestions = questionsData.slice(startIndex, endIndex);
 
   const {user} = useContext(AuthContext); 
+  const {showNotification} = useContext(NotificationContext);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("quzi", user)
     if(!user) {
       navigate("/login")
     }
-  })
+  },[])
 
   const handleAnswer = (questionId, value) => {
     setAnswers(prev => ({
@@ -76,6 +79,15 @@ const Quiz = () => {
   };
 
   const progress = (Object.keys(answers).length / totalQuestions) * 100;
+
+  const onFinish = () => {
+    if ( progress < 100) {
+      showNotification('warning','Vui lòng chọn làm hết các câu hỏi!!!')
+      return;
+    }
+
+    console.log(answers)
+  }
 
   return (
     <Form className="quiz-container">
@@ -140,7 +152,7 @@ const Quiz = () => {
         <Button className="quiz-button" onClick={() => window.location.reload()}>
           LÀM LẠI TRẮC NGHIỆM
         </Button>
-        <Button className="quiz-button" type="submit">
+        <Button className="quiz-button" type="submit" onClick={onFinish}>
           GỬI KẾT QUẢ
         </Button>
       </div>

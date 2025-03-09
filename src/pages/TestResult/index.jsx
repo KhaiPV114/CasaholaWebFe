@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Button, Row } from "antd";
 import s from "./styles.module.scss";
-import { AuthContext } from "@/context/useContext";
+import { AuthContext } from "@/context/authContext";
 import { useNavigate } from "react-router-dom";
 
 const ResultPage = () => {

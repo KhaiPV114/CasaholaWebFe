@@ -1,12 +1,12 @@
 import { client } from "@/api";
-import { UseNotification } from "@/context/useNotification";
+import { NotificationContext } from "@/context/notificationContext";
 import { Button, Form, Input, Modal, Typography } from "antd";
 import { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [visible, setVisible] = useState(true);
-  const { showNotification } = useContext(UseNotification);
+  const { showNotification } = useContext(NotificationContext);
   const navigate = useNavigate()
 
   const onFinish = (values) => {

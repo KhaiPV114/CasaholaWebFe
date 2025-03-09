@@ -1,5 +1,5 @@
-import { AuthContext } from "@/context/useContext";
-import { UseNotification } from "@/context/useNotification";
+import { AuthContext } from "@/context/authContext";
+import { NotificationContext } from "@/context/notificationContext";
 import { BarChartOutlined, DatabaseOutlined, FileSearchOutlined, HomeOutlined, LoginOutlined, LogoutOutlined, MessageOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
@@ -10,7 +10,7 @@ const NavbarLayout = () => {
     const [collapsed, setCollapsed] = useState(true);
     const { user, signOut } = useContext(AuthContext)
     const [isLogined, setIsLogined] = useState(false);
-    const { showNotification } = useContext(UseNotification)
+    const { showNotification } = useContext(NotificationContext)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -51,7 +51,7 @@ const NavbarLayout = () => {
                     <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
                 </Menu.Item>
                 <Menu.Item key="data" icon={<DatabaseOutlined />}>
-                    <NavLink to="">{!collapsed && "Dữ liệu tính cách"}</NavLink>
+                    <NavLink to="/updatecriteria">{!collapsed && "Dữ liệu tính cách"}</NavLink>
                 </Menu.Item>
                 {
                     isLogined

@@ -11,7 +11,7 @@ import { Content } from "antd/es/layout/layout";
 import Title from "antd/es/typography/Title";
 import Paragraph from "antd/es/typography/Paragraph";
 import CustomCardUser from "@/components/CustomCardUser";
-import { AuthContext } from "@/context/useContext";
+import { AuthContext } from "@/context/authContext";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {

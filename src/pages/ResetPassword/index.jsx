@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Modal, Form, Input, Button, Divider, Typography } from "antd";
-import { useLocation, useNavigate } from "react-router-dom";
-import { UseNotification } from "@/context/useNotification";
 import { client } from "@/api";
+import { NotificationContext } from "@/context/notificationContext";
+import { Button, Form, Input, Modal, Typography } from "antd";
+import { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
   const [visible, setVisible] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const { showNotification } = useContext(UseNotification);
+  const { showNotification } = useContext(NotificationContext);
 
   useEffect(() => {
     client
