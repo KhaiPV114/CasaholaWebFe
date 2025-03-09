@@ -21,7 +21,7 @@ import ResultPage from "@/pages/TestResult";
 import UpdateCriteriaPage from "@/pages/UpdateCriteria";
 import UserEditForm from "@/pages/UserInfor";
 import UserManagement from "@/pages/UserManagement";
-import { VnPayReturn } from "@/pages/Vnpay";
+import { VnPayReturn } from "@/pages/vnpay";
 import YourPreferenceForm from "@/pages/YourPreference";
 import { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";

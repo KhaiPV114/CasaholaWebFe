@@ -1,7 +1,7 @@
 import { clientToken } from "@/api";
 import { AuthContext } from "@/context/authContext";
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Input, Layout, Typography, message } from "antd";
+import { Avatar, Input, Layout, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Msg } from "./msg";
@@ -12,6 +12,7 @@ const { Title, Text } = Typography;
 const ChatRoom = () => {
   const [userContact, setUserContact] = useState([]);
   const [userNow, setUserNow] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -35,16 +36,14 @@ const ChatRoom = () => {
     setUserNow(userChoose);
   };
 
+  const filteredContacts = userContact.filter((u) =>
+    u.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <Layout
-      style={{ height: "100vh", background: "#F8F8F8", fontSize: "14px" }}
-    >
-      {" "}
+    <Layout style={{ height: "100vh", background: "#F8F8F8", fontSize: "14px" }}>
       <Sider width={250} style={{ background: "#FFA401", padding: "15px" }}>
-        {" "}
-        <Title level={4} style={{ color: "white", fontSize: "18px" }}>
-          Đoạn chat
-        </Title>{" "}
+        <Title level={4} style={{ color: "white", fontSize: "18px" }}>Đoạn chat</Title>
         <Input
           placeholder="Tìm kiếm trên Messenger"
           style={{
@@ -54,9 +53,10 @@ const ChatRoom = () => {
             borderRadius: "15px",
             fontSize: "13px",
           }}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <div>
-          {userContact.map((u, index) => (
+          {filteredContacts.map((u, index) => (
             <div
               key={index}
               style={{
@@ -67,41 +67,22 @@ const ChatRoom = () => {
               }}
               onClick={() => getMsgNow(u)}
             >
-              {" "}
-              <Avatar icon={<UserOutlined />} size="default" />{" "}
-              <Text
-                style={{ color: "white", marginLeft: "8px", fontSize: "13px" }}
-              >
+              <Avatar icon={<UserOutlined />} size="default" />
+              <Text style={{ color: "white", marginLeft: "8px", fontSize: "13px" }}>
                 {u.fullName}
-              </Text>{" "}
+              </Text>
             </div>
           ))}
         </div>
       </Sider>
-      <Content
-        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
-      >
-        <div
-          style={{
-            padding: "12px",
-            background: "#FFA401",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          {" "}
-          <Avatar icon={<UserOutlined />} size="default" />{" "}
-          <Title
-            level={5}
-            style={{ color: "white", marginLeft: "8px", fontSize: "16px" }}
-          >
+      <Content style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+        <div style={{ padding: "12px", background: "#FFA401", display: "flex", alignItems: "center" }}>
+          <Avatar icon={<UserOutlined />} size="default" />
+          <Title level={5} style={{ color: "white", marginLeft: "8px", fontSize: "16px" }}>
             {userNow?.fullName || ""}
-          </Title>{" "}
+          </Title>
         </div>
-
-       {
-        userContact && userNow &&  <Msg sendUid={user.id} receiveUid={userNow._id} />
-       }
+        {userContact && userNow && <Msg sendUid={user.id} receiveUid={userNow._id} />}
       </Content>
     </Layout>
   );
