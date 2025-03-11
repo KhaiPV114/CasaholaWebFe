@@ -153,7 +153,7 @@ const Home = () => {
           </Col>
         </Row>
 
-        <div className={s.divider}></div>
+        {/* <div className={s.divider}></div>
 
         <Row className={s.featureSection}>
             <Col span={24} className={s['featureSection-info']}>
@@ -173,7 +173,7 @@ const Home = () => {
                     </Col>
                 </Row>
             </Col>
-        </Row>
+        </Row> */}
 
         {/* <Row className={s.topSearch}>
             <Col span={24}>
@@ -206,7 +206,7 @@ const Home = () => {
 
             </Col>
         </Row> */}
-        <div className={s.divider}></div>
+        {/* <div className={s.divider}></div>
 
 
         <div className={s.cta}>
@@ -216,7 +216,7 @@ const Home = () => {
                 <Col span={6}>                <img src="./Penguin.png" style={{ height: '200px' }} alt="Penguin" />
                 </Col>
             </Row>
-        </div>
+        </div> */}
         </div>
     </Content>
   );
