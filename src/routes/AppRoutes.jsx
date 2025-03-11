@@ -12,6 +12,9 @@ import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Package from "@/pages/Package";
 import PaymentPage from "@/pages/Payment";
+import PaymentFailure from "@/pages/PaymentFail";
+import PaymentInvoice from "@/pages/PaymentInvoice";
+import PaymentSuccess from "@/pages/PaymentSuccessfull";
 import Quiz from "@/pages/Quiz";
 import Register from "@/pages/Register";
 import ResetPassword from "@/pages/ResetPassword";
@@ -20,6 +23,7 @@ import TestCharacter from "@/pages/TestCharacter";
 import ResultPage from "@/pages/TestResult";
 import UpdateCriteriaPage from "@/pages/UpdateCriteria";
 import UserEditForm from "@/pages/UserInfor";
+import LikedUsers from "@/pages/UserLikeMeList";
 import UserManagement from "@/pages/UserManagement";
 import MatchedUsers from "@/pages/UserMatchedList";
 import VnPayReturn from "@/pages/vnpay";
@@ -84,6 +88,10 @@ const AppRoutes = () => {
           <Route path="updatecriteria" element={<UpdateCriteriaPage />} />
           <Route path="userinfo" element={<UserEditForm />} />
           <Route path="usermatchedlist" element={<MatchedUsers />} />
+          <Route path="userlikemelist" element={<LikedUsers />} />
+          <Route path="paymentsuccess" element={<PaymentSuccess />} />
+          <Route path="paymentfailure" element={<PaymentFailure />} />
+          <Route path="paymentinvoice" element={<PaymentInvoice />} />
 
           {/* </Route> */}
         </Route>

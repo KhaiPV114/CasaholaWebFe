@@ -1,5 +1,5 @@
 import { BellOutlined, LogoutOutlined, OrderedListOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Badge, Dropdown, Flex, Input, Layout, Menu, Space } from "antd";
+import { Avatar, Badge, Button, Dropdown, Flex, Input, Layout, Menu, Space } from "antd";
 import "antd/dist/reset.css";
 import { Link } from "react-router-dom";
 
@@ -52,6 +52,13 @@ export default function HeaderLayout() {
           prefix={<SearchOutlined style={{ color: "#ff6600" }} />}
         />
         <Space size="middle" align="center">
+          {/* tuỳ theo gọi lấy button khác */}
+        <Button color="cyan" variant="outlined">
+            GOLD
+          </Button>
+          <Button color="danger" variant="outlined">
+            PREMIUM
+          </Button>
           <Dropdown overlay={notificationsMenu} trigger={["hover"]}>
             <Badge count={2}>
               <BellOutlined style={{ fontSize: "20px", color: "#ff6600", cursor: "pointer" }} />
