@@ -50,6 +50,12 @@ const NavbarLayout = () => {
                 <Menu.Item key="news" icon={<MessageOutlined />}>
                     <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
                 </Menu.Item>
+                <Menu.Item key="news" icon={<MessageOutlined />}>
+                    <NavLink to="/userlikemelist">{!collapsed && "Danh sách thích"}</NavLink>
+                </Menu.Item>
+                <Menu.Item key="news" icon={<MessageOutlined />}>
+                    <NavLink to="/usermatchedlist">{!collapsed && "Danh sách chờ"}</NavLink>
+                </Menu.Item>
                 {/* <Menu.Item key="data" icon={<DatabaseOutlined />}>
                     <NavLink to="/updatecriteria">{!collapsed && "Dữ liệu tính cách"}</NavLink>
                 </Menu.Item> */}
