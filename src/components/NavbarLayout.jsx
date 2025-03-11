@@ -1,6 +1,6 @@
 import { AuthContext } from "@/context/authContext";
 import { NotificationContext } from "@/context/notificationContext";
-import { BarChartOutlined, DatabaseOutlined, FileSearchOutlined, HomeOutlined, LoginOutlined, LogoutOutlined, MessageOutlined } from "@ant-design/icons";
+import { BarChartOutlined, DatabaseOutlined, FileSearchOutlined, HeartOutlined, HomeOutlined, LikeOutlined, LoginOutlined, LogoutOutlined, MessageOutlined } from "@ant-design/icons";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useContext, useEffect, useState } from "react";
@@ -50,10 +50,10 @@ const NavbarLayout = () => {
                 <Menu.Item key="news" icon={<MessageOutlined />}>
                     <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
                 </Menu.Item>
-                <Menu.Item key="news" icon={<MessageOutlined />}>
+                <Menu.Item key="news" icon={<LikeOutlined />}>
                     <NavLink to="/userlikemelist">{!collapsed && "Danh sách thích"}</NavLink>
                 </Menu.Item>
-                <Menu.Item key="news" icon={<MessageOutlined />}>
+                <Menu.Item key="news" icon={<HeartOutlined />}>
                     <NavLink to="/usermatchedlist">{!collapsed && "Danh sách chờ"}</NavLink>
                 </Menu.Item>
                 {/* <Menu.Item key="data" icon={<DatabaseOutlined />}>
