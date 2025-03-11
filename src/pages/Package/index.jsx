@@ -46,7 +46,7 @@ const Package = () => {
 
   const handlePayment = () => {
     clientToken
-      .get("/payos/create-payment", {
+      .get("payos/create-payment", {
         params: {
           amount: amount,
           type: type[amount],
