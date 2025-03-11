@@ -74,26 +74,18 @@ const Home = () => {
             CASA HOLA dựa trên tính cách và nhu cầu cá nhân giúp bạn dễ dàng
             trong việc tìm kiếm <strong>BẠN Ở GHÉP</strong> trực tuyến!
           </Paragraph>
-          <Row className={s.card}>
-            <Col span={8}>
-              <CustomCardHome
-                url="./TestCharacter.png"
-                title="TRẮC NGHIỆM TÍNH CÁCH MIỄN PHÍ"
-              />
+          <Row className={s.card} style={{ display: "flex", justifyContent: "center" }} justify="center">
+            <Col span={6} style={{ display: "flex", justifyContent: "center" }}>
+              <CustomCardHome url="./TestCharacter.png" title="TRẮC NGHIỆM TÍNH CÁCH MIỄN PHÍ" />
             </Col>
-            <Col span={8}>
-              <CustomCardHome
-                url="./Feature2.png"
-                title="XÁC ĐỊNH YẾU TỐ TRONG BẢN ĐỒ SAO CÁ NHÂN"
-              />
+            <Col span={6} style={{ display: "flex", justifyContent: "center" }}>
+              <CustomCardHome url="./Feature2.png" title="XÁC ĐỊNH YẾU TỐ TRONG BẢN ĐỒ SAO CÁ NHÂN" />
             </Col>
-            <Col span={8}>
-              <CustomCardHome
-                url="./Feature3.png"
-                title="LỌC NHU CẦU, GHÉP TÌM NHANH CHÓNG"
-              />
+            <Col span={6} style={{ display: "flex", justifyContent: "center" }}>
+              <CustomCardHome url="./Feature3.png" title="LỌC NHU CẦU, GHÉP TÌM NHANH CHÓNG" />
             </Col>
           </Row>
+
         </Col>
       </Row>
 
@@ -217,7 +209,7 @@ const Home = () => {
                 </Col>
             </Row>
         </div> */}
-        </div>
+      </div>
     </Content>
   );
 }
