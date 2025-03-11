@@ -10,7 +10,6 @@ const ForgotPassword = () => {
   const navigate = useNavigate()
 
   const onFinish = (values) => {
-    console.log("Forgot Password Request:", values);
     client
       .post("auth/forgot-password", values)
       .then(() => {

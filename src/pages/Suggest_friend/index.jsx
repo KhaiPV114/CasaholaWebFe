@@ -1,6 +1,6 @@
 import { AuthContext } from '@/context/authContext';
 import { CloseOutlined, HeartFilled, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Modal, Row, Tooltip, Typography, Pagination } from 'antd';
+import { Button, Card, Col, Modal, Pagination, Row, Tooltip, Typography } from 'antd';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './suggest.scss';
@@ -100,7 +100,7 @@ const Guess = ({ friend }) => {
           </Button>
         </Modal>
       )}
-    </div>
+    </div> 
   );
 };
 

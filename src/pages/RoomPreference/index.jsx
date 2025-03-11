@@ -44,13 +44,15 @@ const RoomPreferenceForm = () => {
   const [form] = Form.useForm();
   const [matchPersonality, setMatchPersonality] = useState(false); // ✅ Thêm checkbox trạng thái
   const { showNotification } = useContext(NotificationContext);
-  const { user } = useContext(AuthContext);
+  const { user, remember } = useContext(AuthContext);
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      remember();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [preferences, setPreferences] = useState({
     purpose: "",
     budget: "",

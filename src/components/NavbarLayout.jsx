@@ -1,73 +1,115 @@
 import { AuthContext } from "@/context/authContext";
 import { NotificationContext } from "@/context/notificationContext";
-import { BarChartOutlined, DatabaseOutlined, FileSearchOutlined, HeartOutlined, HomeOutlined, LikeOutlined, LoginOutlined, LogoutOutlined, MessageOutlined } from "@ant-design/icons";
+import {
+    BarChartOutlined,
+    FileSearchOutlined,
+    HeartOutlined,
+    HomeOutlined,
+    LikeOutlined,
+    LoginOutlined,
+    LogoutOutlined,
+    MessageOutlined,
+} from "@ant-design/icons";
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const NavbarLayout = () => {
-    const [collapsed, setCollapsed] = useState(true);
-    const { user, signOut } = useContext(AuthContext)
-    const [isLogined, setIsLogined] = useState(false);
-    const { showNotification } = useContext(NotificationContext)
-    const navigate = useNavigate()
+  const [collapsed, setCollapsed] = useState(true);
+  const { user, signOut } = useContext(AuthContext);
+  const [isLogined, setIsLogined] = useState(false);
+  const { showNotification } = useContext(NotificationContext);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        if (user) {
-            setIsLogined(true)
-        } else {
-            setIsLogined(false)
-        }
-    }, [user])
-
-    const handlerSignOut = () => {
-        signOut();
-        setIsLogined(false);
-        showNotification("success", "Đăng xuất thành công!!!");
-        navigate("/")
+  useEffect(() => {
+    if (user) {
+      setIsLogined(true);
+    } else {
+      setIsLogined(false);
     }
+  }, [user]);
 
-    return (
-        <Sider
-            trigger={null}
-            collapsible
-            collapsed={collapsed}
-            onMouseEnter={() => setCollapsed(false)}
-            onMouseLeave={() => setCollapsed(true)}
-            style={{ background: "#d9d9d9", transition: "width 0.3s", width: collapsed ? "80px" : "200px", zIndex: 1000 }}
-        >
-            <Menu mode="vertical" className="side-menu" style={{ background: "#d9d9d9", width: collapsed ? "80px" : "200px", height: "100%", transition: "width 0.3s", }}>
-                <Menu.Item key="home" icon={<HomeOutlined />}>
-                    <NavLink to="/">{!collapsed && "Trang chủ"}</NavLink>
-                </Menu.Item>
-                <Menu.Item key="test" icon={<BarChartOutlined />}>
-                    <NavLink to="/testcharacter">{!collapsed && "Test tính cách"}</NavLink>
-                </Menu.Item>
-                <Menu.Item key="match" icon={<FileSearchOutlined />}>
-                    <NavLink to="/roompreference">{!collapsed && "Tìm bạn ở ghép"}</NavLink>
-                </Menu.Item>
-                <Menu.Item key="news" icon={<MessageOutlined />}>
-                    <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
-                </Menu.Item>
-                <Menu.Item key="news" icon={<LikeOutlined />}>
-                    <NavLink to="/userlikemelist">{!collapsed && "Danh sách thích"}</NavLink>
-                </Menu.Item>
-                <Menu.Item key="news" icon={<HeartOutlined />}>
-                    <NavLink to="/usermatchedlist">{!collapsed && "Danh sách chờ"}</NavLink>
-                </Menu.Item>
-                {/* <Menu.Item key="data" icon={<DatabaseOutlined />}>
+  const handlerSignOut = () => {
+    signOut();
+    setIsLogined(false);
+    showNotification("success", "Đăng xuất thành công!!!");
+    navigate("/");
+  };
+
+  return (
+    <Sider
+      trigger={null}
+      collapsible
+      collapsed={collapsed}
+      onMouseEnter={() => setCollapsed(false)}
+      onMouseLeave={() => setCollapsed(true)}
+      style={{
+        background: "#d9d9d9",
+        transition: "width 0.3s",
+        width: collapsed ? "80px" : "200px",
+        zIndex: 1000,
+      }}
+    >
+      <Menu
+        mode="vertical"
+        className="side-menu"
+        style={{
+          background: "#d9d9d9",
+          width: collapsed ? "80px" : "200px",
+          height: "100%",
+          transition: "width 0.3s",
+        }}
+      >
+        <Menu.Item key="home" icon={<HomeOutlined />}>
+          <NavLink to="/">{!collapsed && "Trang chủ"}</NavLink>
+        </Menu.Item>
+        <Menu.Item key="test" icon={<BarChartOutlined />}>
+          <NavLink to="/testcharacter">
+            {!collapsed && "Test tính cách"}
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="match" icon={<FileSearchOutlined />}>
+          <NavLink to="/roompreference">
+            {!collapsed && "Tìm bạn ở ghép"}
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="news" icon={<MessageOutlined />}>
+          <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
+        </Menu.Item>
+        <Menu.Item key="likes" icon={<LikeOutlined />}>
+          <NavLink to="/userlikemelist">
+            {!collapsed && "Danh sách thích"}
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="waitting" icon={<HeartOutlined />}>
+          <NavLink to="/usermatchedlist">
+            {!collapsed && "Danh sách chờ"}
+          </NavLink>
+        </Menu.Item>
+        {/* <Menu.Item key="data" icon={<DatabaseOutlined />}>
                     <NavLink to="/updatecriteria">{!collapsed && "Dữ liệu tính cách"}</NavLink>
                 </Menu.Item> */}
-                {
-                    isLogined
-                        ? <Menu.Item onClick={handlerSignOut} key="logout" icon={<LogoutOutlined />}>{!collapsed && "Đăng Xuất"}</Menu.Item>
-                        : <Menu.Item onClick={() => navigate("/login")} key="login" icon={<LoginOutlined />}>{!collapsed && "Đăng Nhập"}</Menu.Item>
-
-                }
-            </Menu>
-        </Sider>
-    );
+        {isLogined ? (
+          <Menu.Item
+            onClick={handlerSignOut}
+            key="logout"
+            icon={<LogoutOutlined />}
+          >
+            {!collapsed && "Đăng Xuất"}
+          </Menu.Item>
+        ) : (
+          <Menu.Item
+            onClick={() => navigate("/login")}
+            key="login"
+            icon={<LoginOutlined />}
+          >
+            {!collapsed && "Đăng Nhập"}
+          </Menu.Item>
+        )}
+      </Menu>
+    </Sider>
+  );
 };
 
 export default NavbarLayout;

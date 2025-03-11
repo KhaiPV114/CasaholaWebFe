@@ -8,127 +8,125 @@ import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 const { Option } = Select;
+// Danh sách các tùy chọn
+const options = {
+  purpose: [
+    "Chỉ cần ở chung",
+    "Cùng học tập, hỗ trợ nhau",
+    "Cùng làm việc, tạo động lực",
+    "Chia sẻ sở thích",
+    "Tìm bạn trọ lâu dài",
+    "Không có nhu cầu giao tiếp",
+  ],
+  budget: [
+    "Càng rẻ càng tốt",
+    "Dưới 1 triệu đồng",
+    "1 triệu đến 3 triệu đồng",
+    "3 triệu đến 5 triệu đồng",
+    "5 triệu đồng trở lên",
+    "Thoải mái về giá cả",
+  ],
+  moneyOpinion: [
+    "Rõ ràng, thẳng thắn",
+    "Có thể linh hoạt, hỗ trợ nhau khi cần",
+    "Tự chi trả",
+    "Chia đều",
+    "Thoải mái về giá cả",
+    "Không tính toán nhỏ nhặt",
+  ],
+  habit: [
+    "Ngăn nắp, sạch sẽ, thích gọn gàng",
+    "Thoải mái",
+    "Giờ giấc linh hoạt",
+    "Muốn không gian yên tĩnh, ít ồn ào",
+    "Thích đông vui, trò chuyện nhiều",
+    "Học tập tại phòng, cần yên tĩnh",
+  ],
+  timeActivate: [
+    "Ngủ sớm, dậy sớm",
+    "Thức khuya",
+    "Linh hoạt",
+    "Tôn trọng, riêng biệt thời gian",
+    "Đi sớm về khuya",
+    "Làm đêm",
+  ],
+  hobby: [
+    "Nghệ thuật, âm nhạc",
+    "Thể thao, vận động",
+    "Game, công nghệ",
+    "Nấu ăn, thử món mới",
+    "Du lịch, khám phá",
+    "Quay TikTok",
+  ],
+  hygiene: [
+    "Dọn dẹp thường xuyên, có lịch rõ ràng",
+    "Phân chia lịch dọn",
+    "Chỉ cần không quá bừa bộn",
+    "Không quan trọng",
+    "Thuê người dọn định kỳ",
+    "Tự dọn của mình",
+  ],
+  outsider: [
+    "Hạn chế người lạ đến phòng",
+    "Đến vào khung giờ nhất định",
+    "Thoải mái",
+    "Hạn chế người khác qua đêm",
+    "Tự dọn của mình",
+  ],
+  pet: [
+    "Không nuôi thú cưng",
+    "Chỉ nuôi thú nhỏ (chuột hamster, cá, ...)",
+    "Nuôi chó/mèo",
+    "Dị ứng lông động vật",
+    "Sẵn sàng chia sẻ việc chăm sóc",
+    "Thoả thuận trước",
+  ],
+  cooking: [
+    "Tự nấu ăn",
+    "Ăn ngoài",
+    "Chia sẻ cùng nhau",
+    "Tự ăn riêng",
+    "Không thích mùi đồ ăn trong phòng",
+    "Phân chia bếp riêng",
+  ],
+  vehicle: [
+    "Xe máy",
+    "Xe đạp",
+    "Đi bộ",
+    "Ô tô",
+    "Phương tiện công cộng",
+    "Không có phương tiện đi chuyển",
+  ],
+  region: [
+    "Gần trường học/ làm việc",
+    "Gần trung tâm",
+    "Khu yên tĩnh, ít ồn ào",
+    "Nhiều tiện ích xung quanh",
+    "Không quan trọng, miễn phòng tốt",
+    "An ninh tốt",
+  ],
+  sharingWay: [
+    "Thoải mái, có thể dùng chung đồ",
+    "Khu vực riêng, hạn chế dùng chung",
+    "Căn riêng tư",
+    "Thoải mái",
+    "Giường riêng",
+    "Chung giường",
+  ],
+};
 
 const UpdateCriteriaPage = () => {
   const navigate = useNavigate();
-
-  // Danh sách các tùy chọn
-  const options = {
-    purpose: [
-      "Chỉ cần ở chung",
-      "Cùng học tập, hỗ trợ nhau",
-      "Cùng làm việc, tạo động lực",
-      "Chia sẻ sở thích",
-      "Tìm bạn trọ lâu dài",
-      "Không có nhu cầu giao tiếp",
-    ],
-    budget: [
-      "Càng rẻ càng tốt",
-      "Dưới 1 triệu đồng",
-      "1 triệu đến 3 triệu đồng",
-      "3 triệu đến 5 triệu đồng",
-      "5 triệu đồng trở lên",
-      "Thoải mái về giá cả",
-    ],
-    moneyOpinion: [
-      "Rõ ràng, thẳng thắn",
-      "Có thể linh hoạt, hỗ trợ nhau khi cần",
-      "Tự chi trả",
-      "Chia đều",
-      "Thoải mái về giá cả",
-      "Không tính toán nhỏ nhặt",
-    ],
-    habit: [
-      "Ngăn nắp, sạch sẽ, thích gọn gàng",
-      "Thoải mái",
-      "Giờ giấc linh hoạt",
-      "Muốn không gian yên tĩnh, ít ồn ào",
-      "Thích đông vui, trò chuyện nhiều",
-      "Học tập tại phòng, cần yên tĩnh",
-    ],
-    timeActivate: [
-      "Ngủ sớm, dậy sớm",
-      "Thức khuya",
-      "Linh hoạt",
-      "Tôn trọng, riêng biệt thời gian",
-      "Đi sớm về khuya",
-      "Làm đêm",
-    ],
-    hobby: [
-      "Nghệ thuật, âm nhạc",
-      "Thể thao, vận động",
-      "Game, công nghệ",
-      "Nấu ăn, thử món mới",
-      "Du lịch, khám phá",
-      "Quay TikTok",
-    ],
-    hygiene: [
-      "Dọn dẹp thường xuyên, có lịch rõ ràng",
-      "Phân chia lịch dọn",
-      "Chỉ cần không quá bừa bộn",
-      "Không quan trọng",
-      "Thuê người dọn định kỳ",
-      "Tự dọn của mình",
-    ],
-    outsider: [
-      "Hạn chế người lạ đến phòng",
-      "Đến vào khung giờ nhất định",
-      "Thoải mái",
-      "Hạn chế người khác qua đêm",
-      "Tự dọn của mình",
-    ],
-    pet: [
-      "Không nuôi thú cưng",
-      "Chỉ nuôi thú nhỏ (chuột hamster, cá, ...)",
-      "Nuôi chó/mèo",
-      "Dị ứng lông động vật",
-      "Sẵn sàng chia sẻ việc chăm sóc",
-      "Thoả thuận trước",
-    ],
-    cooking: [
-      "Tự nấu ăn",
-      "Ăn ngoài",
-      "Chia sẻ cùng nhau",
-      "Tự ăn riêng",
-      "Không thích mùi đồ ăn trong phòng",
-      "Phân chia bếp riêng",
-    ],
-    vehicle: [
-      "Xe máy",
-      "Xe đạp",
-      "Đi bộ",
-      "Ô tô",
-      "Phương tiện công cộng",
-      "Không có phương tiện đi chuyển",
-    ],
-    region: [
-      "Gần trường học/ làm việc",
-      "Gần trung tâm",
-      "Khu yên tĩnh, ít ồn ào",
-      "Nhiều tiện ích xung quanh",
-      "Không quan trọng, miễn phòng tốt",
-      "An ninh tốt",
-    ],
-    sharingWay: [
-      "Thoải mái, có thể dùng chung đồ",
-      "Khu vực riêng, hạn chế dùng chung",
-      "Căn riêng tư",
-      "Thoải mái",
-      "Giường riêng",
-      "Chung giường",
-    ],
-  };
-
-  // State lưu dữ liệu đã chọn
+  const { user, remember } = useContext(AuthContext);
   const [selectedValues, setSelectedValues] = useState({});
-  const { user } = useContext(AuthContext);
   const { showNotification } = useContext(NotificationContext);
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      remember();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     // Lấy dữ liệu từ localStorage nếu có

@@ -4,7 +4,7 @@ import NavbarLayout from "@/components/NavbarLayout";
 import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
 const MainLayout = () => {
-  
+
   return (
     <div className="main-layout">
       <Layout>

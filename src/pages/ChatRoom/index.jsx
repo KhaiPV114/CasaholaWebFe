@@ -13,12 +13,12 @@ const ChatRoom = () => {
   const [userContact, setUserContact] = useState([]);
   const [userNow, setUserNow] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const { user } = useContext(AuthContext);
+  const { user, remember } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      remember();
     }
 
     clientToken
@@ -30,7 +30,7 @@ const ChatRoom = () => {
       .catch(() => {
         setUserContact([]);
       });
-  }, [user, navigate]);
+  }, [user, navigate, remember]);
 
   const getMsgNow = (userChoose) => {
     setUserNow(userChoose);
