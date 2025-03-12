@@ -7,10 +7,20 @@ export const AuthContext = createContext();
 // 2. Create Provider Component
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [likes, setLikes] = useState([]);
+  const [matchs, setMatchs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  
-  const signIn = (userData, accessToken, refreshToken) => {
+
+  const signIn = (
+    userData,
+    accessToken,
+    refreshToken,
+    likesData,
+    matchsData
+  ) => {
     setUser(userData);
+    setLikes(likesData);
+    setMatchs(matchsData);
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
   };
@@ -30,20 +40,31 @@ export const UserProvider = ({ children }) => {
     client
       .post("auth/account-remember", { token })
       .then((res) => {
-        const { user, accessToken, refreshToken } = res.data;
-        signIn(user, accessToken, refreshToken);
+        const { user, accessToken, refreshToken, likes, matchs } = res.data;
+        signIn(user, accessToken, refreshToken, likes, matchs);
       })
       .catch(() => {
         signOut();
         window.location.href = "/login";
       })
       .finally(() => {
-        setIsLoading(true)
-      })
+        setIsLoading(true);
+      });
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut, remember, isLoading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        signIn,
+        signOut,
+        remember,
+        isLoading,
+        setLikes,
+        likes,
+        matchs,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

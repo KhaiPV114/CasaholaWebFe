@@ -6,14 +6,7 @@ import {
   EyeTwoTone,
   GoogleOutlined,
 } from "@ant-design/icons";
-import {
-  Button,
-  Divider,
-  Form,
-  Input,
-  Modal,
-  Typography
-} from "antd";
+import { Button, Divider, Form, Input, Modal, Typography } from "antd";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -28,8 +21,8 @@ const Login = () => {
     client
       .post("auth/login/local", values)
       .then((res) => {
-        const { user, accessToken, refreshToken } = res.data;
-        signIn(user, accessToken, refreshToken);
+        const { user, accessToken, refreshToken, likes, matchs } = res.data;
+        signIn(user, accessToken, refreshToken, likes, matchs);
         showNotification("success", "Đăng nhập thành công!");
         navigate("/yourpreference");
       })

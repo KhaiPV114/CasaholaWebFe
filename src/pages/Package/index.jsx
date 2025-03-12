@@ -1,9 +1,9 @@
-import { AuthContext } from "@/context/authContext";
+import { clientToken } from "@/api";
 import { Button, Col, Image, Modal, Row, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import PaymentInvoice from "../PaymentInvoice";
 import "./package.scss";
-import { clientToken } from "@/api";
+import { AuthContext } from "@/context/authContext";
 
 const { Title } = Typography;
 const type = {
@@ -12,17 +12,9 @@ const type = {
 };
 
 const Package = () => {
-  const { user, remember } = useContext(AuthContext);
   const [selectedPackage, setSelectedPackage] = useState(false);
   const [amount, setAmount] = useState(35000);
   const [orderId, setOrderId] = useState(Date.now().toString());
-
-  useEffect(() => {
-    if (!user) {
-      remember();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // const handleRedirect = (packageType) => {
   //   clientToken
@@ -37,6 +29,14 @@ const Package = () => {
   //       window.location.href = res.data;
   //     });
   // };
+  const { user, remember } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!user) {
+      remember();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const payos = (amount) => {
     setOrderId(Date.now().toString());

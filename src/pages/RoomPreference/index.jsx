@@ -1,11 +1,11 @@
 import { clientToken } from "@/api";
-import { AuthContext } from "@/context/authContext";
 import { NotificationContext } from "@/context/notificationContext";
 import { Button, Card, Checkbox, Col, Form, Row, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Guess from "../Suggest_friend";
 import "./roompreference.scss";
+import { AuthContext } from "@/context/authContext";
 
 const { Title, Paragraph } = Typography;
 
@@ -45,13 +45,6 @@ const RoomPreferenceForm = () => {
   const [matchPersonality, setMatchPersonality] = useState(false); // ✅ Thêm checkbox trạng thái
   const { showNotification } = useContext(NotificationContext);
   const { user, remember } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (!user) {
-      remember();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const [preferences, setPreferences] = useState({
     purpose: "",
@@ -174,6 +167,13 @@ const RoomPreferenceForm = () => {
       "Chung giường",
     ],
   };
+
+  useEffect(() => {
+    if (!user) {
+      remember();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handlePreferenceChange = (category, newSelectedOption) => {
     setPreferences((prev) => ({ ...prev, [category]: newSelectedOption }));

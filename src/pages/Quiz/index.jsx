@@ -1,8 +1,8 @@
 import { NotificationContext } from "@/context/notificationContext";
 import { Button, Form, Progress, Radio } from "antd";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/authContext";
 import "./quiz.scss";
+import { AuthContext } from "@/context/authContext";
 
 const questionsData = [
   {
@@ -59,8 +59,9 @@ const Quiz = () => {
   const endIndex = Math.min(startIndex + questionsPerPage, totalQuestions);
   const currentQuestions = questionsData.slice(startIndex, endIndex);
 
-  const { user, remember } = useContext(AuthContext);
   const { showNotification } = useContext(NotificationContext);
+
+  const { user, remember } = useContext(AuthContext);
 
   useEffect(() => {
     if (!user) {
