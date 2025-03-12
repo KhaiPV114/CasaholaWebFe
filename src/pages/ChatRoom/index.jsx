@@ -43,7 +43,6 @@ const ChatRoom = () => {
 
       setUserSource(matchingSource || response.data[0]);
     } catch (error) {
-      console.log("có errp", error);
       setUserContact([]);
     }
   };

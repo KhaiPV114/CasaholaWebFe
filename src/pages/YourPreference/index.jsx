@@ -154,7 +154,7 @@ const YourPreferenceForm = () => {
       .get("/criterias")
       .then((res) => {
         if (res.data?.criteria) {
-          navigate("/");
+          window.location.href = "/";
         }
       })
       .catch(() => {

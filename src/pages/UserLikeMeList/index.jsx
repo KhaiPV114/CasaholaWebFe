@@ -15,14 +15,18 @@ const LikedUsers = () => {
   }, []);
 
   useEffect(() => {
-    clientToken
-      .get(`users/likes/${user.id}`)
-      .then((res) => {
-        setLikedUsers(res.data || []);
-      })
-      .catch(() => {
-        window.location.href = "/500";
-      });
+    try {
+      clientToken
+        .get(`users/likes/${user.id}`)
+        .then((res) => {
+          setLikedUsers(res.data || []);
+        })
+        .catch(() => {
+          window.location.href = "/500";
+        });
+    } catch (error) {
+      window.location.href = "/login";
+    }
   }, [user, setLikedUsers]);
 
   //   const convertAge = (dob) => {

@@ -21,15 +21,19 @@ const MatchedUsers = () => {
   }, []);
 
   useEffect(() => {
-    clientToken
-      .get(`users/matchs/${user.id}`)
-      .then((res) => {
-        setUserMatchs(res.data || []);
-        setCurrentUsers(res.data?.slice(0, 16) || []);
-      })
-      .catch(() => {
-        window.location.href = "/500";
-      });
+    try {
+      clientToken
+        .get(`users/matchs/${user.id}`)
+        .then((res) => {
+          setUserMatchs(res.data || []);
+          setCurrentUsers(res.data?.slice(0, 16) || []);
+        })
+        .catch(() => {
+          window.location.href = "/500";
+        });
+    } catch (error) {
+      window.location.href = "/login";
+    }
   }, [user, setUserMatchs]);
 
   const changePage = (page) => {
