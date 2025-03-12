@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Card, Button } from "antd";
 import { CloseCircleFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "@/context/authContext";
 
 const PaymentFailure = () => {
     const navigate = useNavigate();
+    const {user, remember} = useContext(AuthContext)
+
+    useEffect(() => {
+        if (!user) {
+          remember()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
 
     return (
         <div style={{
@@ -27,7 +36,7 @@ const PaymentFailure = () => {
                 <h2 style={{ color: "#333", fontWeight: "bold" }}>Thanh toán thất bại!</h2>
                 <p style={{ color: "#666", marginBottom: "20px" }}>Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại.</p>
 
-                <div style={{
+                {/* <div style={{
                     background: "#FFF2F0",
                     padding: "15px",
                     borderRadius: "8px",
@@ -37,7 +46,7 @@ const PaymentFailure = () => {
                     <p><strong>Mã giao dịch:</strong> #123456789</p>
                     <p><strong>Số tiền:</strong> 500.000 VND</p>
                     <p><strong>Phương thức:</strong> VNPAY</p>
-                </div>
+                </div> */}
 
                 <Button type="primary" style={{
                     width: "100%",

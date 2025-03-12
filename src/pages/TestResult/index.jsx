@@ -1,17 +1,18 @@
-import React, { useContext, useEffect } from "react";
-import { Button, Row } from "antd";
-import s from "./styles.module.scss";
 import { AuthContext } from "@/context/authContext";
-import { useNavigate } from "react-router-dom";
+import { Button, Row } from "antd";
+import { useContext, useEffect } from "react";
+import s from "./styles.module.scss";
 
 const ResultPage = () => {
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user, remember } = useContext(AuthContext);
+  
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      remember();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className={s.resultContainer}>
       <h2 className={s.title}>KẾT QUẢ CỦA BẠN</h2>

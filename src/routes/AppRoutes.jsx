@@ -1,4 +1,3 @@
-import { client } from "@/api";
 import { AuthContext } from "@/context/authContext";
 import { NotificationContext } from "@/context/notificationContext";
 import { socket } from "@/context/socketContext";
@@ -32,26 +31,8 @@ import { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const AppRoutes = () => {
-  const { user, signIn, signOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { showNotification } = useContext(NotificationContext);
-
-  useEffect(() => {
-    const token =
-      localStorage.getItem("accessToken") ||
-      localStorage.getItem("refreshToken");
-    if (!user && token) {
-      client
-        .post("auth/account-remember", { token })
-        .then((res) => {
-          const { user, accessToken, refreshToken } = res.data;
-          signIn(user, accessToken, refreshToken);
-        })
-        .catch(() => {
-          signOut();
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (!user) return;
@@ -66,20 +47,18 @@ const AppRoutes = () => {
     return () => {
       socket.off(`tb${user.id}`, sh);
     };
-  }, [ user, showNotification]);
-
+  }, [user, showNotification]);
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          {/* <Route element={<ProtectedRoute user={ user } />}> */}
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="testcharacter" element={<TestCharacter />} />
           <Route path="result-page" element={<ResultPage />} />
           <Route path="quiz" element={<Quiz />} />
-          {/* <Route path="guess-friend" element={<Guess />} /> */}
           <Route path="payment" element={<PaymentPage />} />
           <Route path="package" element={<Package />} />
           <Route path="roompreference" element={<RoommatePreferenceForm />} />
@@ -89,11 +68,9 @@ const AppRoutes = () => {
           <Route path="userinfo" element={<UserEditForm />} />
           <Route path="usermatchedlist" element={<MatchedUsers />} />
           <Route path="userlikemelist" element={<LikedUsers />} />
-          <Route path="paymentsuccess" element={<PaymentSuccess />} />
-          <Route path="paymentfailure" element={<PaymentFailure />} />
-          <Route path="paymentinvoice" element={<PaymentInvoice />} />
-
-          {/* </Route> */}
+          <Route path="payment-success" element={<PaymentSuccess />} />
+          <Route path="payment-failure" element={<PaymentFailure />} />
+          <Route path="payment-invoice" element={<PaymentInvoice />} />
         </Route>
         <Route path="yourpreference" element={<YourPreferenceForm />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
