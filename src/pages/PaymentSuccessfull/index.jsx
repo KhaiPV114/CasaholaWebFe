@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
-import { Card, Button } from "antd";
-import { CheckCircleFilled } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@/context/authContext";
+import { CheckCircleFilled } from "@ant-design/icons";
+import { Button, Card } from "antd";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ const PaymentSuccess = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <div
       style={{

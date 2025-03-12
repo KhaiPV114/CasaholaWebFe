@@ -1,9 +1,20 @@
-import { AuthContext } from '@/context/authContext';
-import { CloseOutlined, HeartFilled, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Modal, Pagination, Row, Tooltip, Typography } from 'antd';
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './suggest.scss';
+import { clientToken } from "@/api";
+import { AuthContext } from "@/context/authContext";
+import { NotificationContext } from "@/context/notificationContext";
+import { CloseOutlined, HeartFilled, MessageOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Card,
+  Col,
+  Modal,
+  Pagination,
+  Row,
+  Tooltip,
+  Typography,
+} from "antd";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./suggest.scss";
 
 const { Title, Paragraph } = Typography;
 const PAGE_SIZE = 4; // Số người hiển thị mỗi trang
@@ -11,7 +22,8 @@ const PAGE_SIZE = 4; // Số người hiển thị mỗi trang
 const Guess = ({ friend }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProfile, setSelectedProfile] = useState(null);
-  const { user } = useContext(AuthContext);
+  const { user, likes, setLikes, matchs } = useContext(AuthContext);
+  const { showNotification } = useContext(NotificationContext);
   const navigate = useNavigate();
 
   const openProfileDetails = (profile) => {
@@ -22,12 +34,42 @@ const Guess = ({ friend }) => {
     setSelectedProfile(null);
   };
 
-  const chatNow = () => {
-    if (user.packageType === "NONE") {
+  const chatNow = (id) => {
+    if (user.packageType === "NONE" && !matchs.includes(id)) {
       navigate("/package");
     } else {
-      navigate("/chatroom");
+      navigate(`/chatroom?chooseUid=${id}`);
     }
+  };
+
+  const like = (sourceUid) => {
+    clientToken
+      .post("likes", {
+        targetUid: user.id,
+        sourceUid,
+      })
+      .then(() => {
+        setLikes([...likes, sourceUid]);
+        showNotification("success", "Đã thêm vào khỏi danh sách yêu thích!");
+      })
+      .catch(() => {
+        navigate("/500");
+      });
+  };
+
+  const unlike = (sourceUid) => {
+    clientToken
+      .put("likes", {
+        targetUid: user.id,
+        sourceUid,
+      })
+      .then(() => {
+        setLikes(likes.filter((uid) => uid !== sourceUid));
+        showNotification("success", "Đã loại bỏ ra khỏi danh sách yêu thích!");
+      })
+      .catch(() => {
+        navigate("/500");
+      });
   };
 
   // Xác định dữ liệu trang hiện tại
@@ -52,20 +94,48 @@ const Guess = ({ friend }) => {
               hoverable
               className="profile-card"
               style={{ height: "250px", transition: "transform 0.3s ease" }}
-              cover={<img className="profile-image" src={"./guess_test.jpg"} alt="Profile" />}
+              cover={
+                <img
+                  className="profile-image"
+                  src={"./guess_test.jpg"}
+                  alt="Profile"
+                />
+              }
               bordered={false}
-              onClick={() => openProfileDetails(profile)}
             >
-              <Title level={5} className="profile-name">{profile.name} • {profile.school}</Title>
+              <Title level={5} className="profile-name">
+                {profile.fullName} •
+              </Title>
               <div className="action-buttons">
-                <Tooltip title="Từ chối">
-                  <Button shape="circle" icon={<CloseOutlined />} className="reject-button" />
-                </Tooltip>
-                <Tooltip title="Thích">
-                  <Button shape="circle" icon={<HeartFilled />} className="like-button" />
-                </Tooltip>
-                <Tooltip title="Đánh dấu">
-                  <Button shape="circle" icon={<StarOutlined />} className="star-button" />
+                {likes && likes.includes(profile._id) && (
+                  <Tooltip title="Bỏ thích">
+                    <Button
+                      shape="circle"
+                      icon={<CloseOutlined />}
+                      className="reject-button"
+                      onClick={() => unlike(profile._id)}
+                    />
+                  </Tooltip>
+                )}
+
+                {likes && !likes.includes(profile._id) && (
+                  <Tooltip title="Thích">
+                    <Button
+                      shape="circle"
+                      icon={<HeartFilled />}
+                      className="like-button"
+                      onClick={() => like(profile._id)}
+                    />
+                  </Tooltip>
+                )}
+
+                <Tooltip title="Chát ngay">
+                  <Button
+                    shape="circle"
+                    icon={<MessageOutlined />}
+                    className="star-button"
+                    onClick={() => openProfileDetails(profile)}
+                  />
                 </Tooltip>
               </div>
             </Card>
@@ -95,12 +165,16 @@ const Guess = ({ friend }) => {
           <Paragraph>{selectedProfile.workplace}</Paragraph>
           <Paragraph>Địa chỉ: {selectedProfile.address}</Paragraph>
           <Paragraph>Hoạt động: {selectedProfile.online}</Paragraph>
-          <Button type="primary" onClick={chatNow} icon={<MessageOutlined />}>
+          <Button
+            type="primary"
+            onClick={() => chatNow(selectedProfile._id)}
+            icon={<MessageOutlined />}
+          >
             TRÒ CHUYỆN NGAY
           </Button>
         </Modal>
       )}
-    </div> 
+    </div>
   );
 };
 

@@ -1,4 +1,6 @@
 import { clientToken } from "@/api";
+import { AuthContext } from "@/context/authContext";
+import { NotificationContext } from "@/context/notificationContext";
 import { socket } from "@/context/socketContext";
 import {
   GifOutlined,
@@ -8,15 +10,17 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Input } from "antd";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Msg = ({ sendUid, receiveUid }) => {
+export const Msg = ({ sendUid, receiveUid, fetchData }) => {
   const [messages, setMessages] = useState([]);
   //   const { socket } = useContext(WebSocketContext);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
+  const { user, matchs } = useContext(AuthContext);
+  const { showNotification } = useContext(NotificationContext);
 
   useEffect(() => {
     if (receiveUid === 0) {
@@ -49,6 +53,8 @@ export const Msg = ({ sendUid, receiveUid }) => {
           { sender: data.sender, text: data.message },
         ]);
       }
+
+      fetchData();
     };
 
     socket.on(`${sendUid}`, handleNewMessage);
@@ -62,6 +68,14 @@ export const Msg = ({ sendUid, receiveUid }) => {
   }, [messages]);
 
   const handleSend = () => {
+    if (user?.packageType === "NONE" && !matchs.includes(receiveUid)) {
+      showNotification(
+        "warning",
+        "Bạn chưa đăng ký gói hoặc hai bạn chưa kết nối với nhau!!!"
+      );
+      setInput("");
+      return;
+    }
     if (input.trim()) {
       setMessages([...messages, { sender: "Bạn", text: input }]);
       socket.emit("createChat", { receiveUid: receiveUid, message: input });

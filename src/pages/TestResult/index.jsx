@@ -1,18 +1,7 @@
-import { AuthContext } from "@/context/authContext";
 import { Button, Row } from "antd";
-import { useContext, useEffect } from "react";
 import s from "./styles.module.scss";
 
 const ResultPage = () => {
-  const { user, remember } = useContext(AuthContext);
-  
-  useEffect(() => {
-    if (!user) {
-      remember();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <div className={s.resultContainer}>
       <h2 className={s.title}>KẾT QUẢ CỦA BẠN</h2>

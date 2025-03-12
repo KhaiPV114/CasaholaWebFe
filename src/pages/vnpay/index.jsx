@@ -32,15 +32,15 @@ const VnPayReturn = () => {
         client
           .post("auth/account-remember", { token })
           .then((res) => {
-            const { user, accessToken, refreshToken } = res.data;
-            signIn(user, accessToken, refreshToken);
+            const { user, accessToken, refreshToken, likes, matchs } = res.data;
+            signIn(user, accessToken, refreshToken, likes, matchs);
           })
           .catch(() => {
             signOut();
           });
         navigate("/");
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>hiha</div>;

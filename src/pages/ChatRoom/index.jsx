@@ -3,7 +3,7 @@ import { AuthContext } from "@/context/authContext";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Input, Layout, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Msg } from "./msg";
 
 const { Content, Sider } = Layout;
@@ -11,39 +11,73 @@ const { Title, Text } = Typography;
 
 const ChatRoom = () => {
   const [userContact, setUserContact] = useState([]);
-  const [userNow, setUserNow] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [userSource, setUserSource] = useState(null);
+  const [filteredContacts, setFilteredContacts] = useState([]);
+  const location = useLocation();
+
   const { user, remember } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
       remember();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    clientToken
-      .get(`chat/${user.id}`)
-      .then((res) => {
-        setUserContact(res.data || []);
-        setUserNow(res.data[0]);
-      })
-      .catch(() => {
-        setUserContact([]);
-      });
-  }, [user, navigate, remember]);
+  const fetchData = async (params) => {
+    try {
+      const response = await clientToken.get(`chat/${user.id}`, { params });
+      setUserContact(response.data || []);
 
-  const getMsgNow = (userChoose) => {
-    setUserNow(userChoose);
+      setFilteredContacts(
+        response.data?.filter((u) => u.fullName.toLowerCase().includes("")) ||
+          []
+      );
+
+      let matchingSource = null;
+      if (params?.chooseUid) {
+        matchingSource = response.data.find(
+          (contact) => contact._id === params.chooseUid
+        );
+      }
+
+      setUserSource(matchingSource || response.data[0]);
+    } catch (error) {
+      console.log("có errp", error);
+      setUserContact([]);
+    }
   };
 
-  const filteredContacts = userContact.filter((u) =>
-    u.fullName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    if (location.search) {
+      fetchData(new URLSearchParams(location.search));
+    } else {
+      fetchData();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getMsgSource = (userChoose) => {
+    setUserSource(userChoose);
+  };
+
+  const setSearchTerm = (key) => {
+    const users = userContact.filter((u) =>
+      u.fullName.toLowerCase().includes(key || "")
+    );
+
+    setFilteredContacts(users);
+  };
 
   return (
-    <Layout style={{ height: "100vh", background: "#F8F8F8", fontSize: "14px" }}>
+    <Layout
+      style={{ height: "100vh", background: "#F8F8F8", fontSize: "14px" }}
+    >
       <Sider width={250} style={{ background: "#FFA401", padding: "15px" }}>
-        <Title level={4} style={{ color: "white", fontSize: "18px" }}>Đoạn chat</Title>
+        <Title level={4} style={{ color: "white", fontSize: "18px" }}>
+          Đoạn chat
+        </Title>
         <Input
           placeholder="Tìm kiếm trên Messenger"
           style={{
@@ -65,24 +99,44 @@ const ChatRoom = () => {
                 marginBottom: "10px",
                 cursor: "pointer",
               }}
-              onClick={() => getMsgNow(u)}
+              onClick={() => getMsgSource(u)}
             >
               <Avatar icon={<UserOutlined />} size="default" />
-              <Text style={{ color: "white", marginLeft: "8px", fontSize: "13px" }}>
+              <Text
+                style={{ color: "white", marginLeft: "8px", fontSize: "13px" }}
+              >
                 {u.fullName}
               </Text>
             </div>
           ))}
         </div>
       </Sider>
-      <Content style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-        <div style={{ padding: "12px", background: "#FFA401", display: "flex", alignItems: "center" }}>
+      <Content
+        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
+      >
+        <div
+          style={{
+            padding: "12px",
+            background: "#FFA401",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <Avatar icon={<UserOutlined />} size="default" />
-          <Title level={5} style={{ color: "white", marginLeft: "8px", fontSize: "16px" }}>
-            {userNow?.fullName || ""}
+          <Title
+            level={5}
+            style={{ color: "white", marginLeft: "8px", fontSize: "16px" }}
+          >
+            {userSource?.fullName || ""}
           </Title>
         </div>
-        {userContact && userNow && <Msg sendUid={user.id} receiveUid={userNow._id} />}
+        {user && userContact && userSource && (
+          <Msg
+            sendUid={user.id}
+            receiveUid={userSource._id}
+            fetchData={fetchData}
+          />
+        )}
       </Content>
     </Layout>
   );

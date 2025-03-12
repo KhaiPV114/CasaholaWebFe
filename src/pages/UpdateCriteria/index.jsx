@@ -117,9 +117,10 @@ const options = {
 
 const UpdateCriteriaPage = () => {
   const navigate = useNavigate();
-  const { user, remember } = useContext(AuthContext);
   const [selectedValues, setSelectedValues] = useState({});
   const { showNotification } = useContext(NotificationContext);
+
+  const { user, remember } = useContext(AuthContext);
 
   useEffect(() => {
     if (!user) {
@@ -132,6 +133,7 @@ const UpdateCriteriaPage = () => {
     // Lấy dữ liệu từ localStorage nếu có
     const storedData = JSON.parse(localStorage.getItem("selectedInfo")) || {};
     setSelectedValues(storedData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (key, value) => {

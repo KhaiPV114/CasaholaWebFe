@@ -97,9 +97,6 @@ export default function HeaderLayout() {
         <Space size="middle" align="center">
           {/* tuỳ theo gọi lấy button khác */}
           {user?.packageType && packages[user.packageType]}
-          <Button color="danger" variant="outlined">
-            PREMIUM
-          </Button>
           <Dropdown overlay={notificationsMenu} trigger={["hover"]}>
             <Badge count={2}>
               <BellOutlined
