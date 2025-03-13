@@ -53,7 +53,7 @@ export const Msg = ({ sendUid, receiveUid, fetchData }) => {
           { sender: data.sender, text: data.message },
         ]);
       }
-      fetchData();
+      fetchData(new URLSearchParams(`?chooseUid=${receiveUid}`));;
     };
 
     socket.on(`${sendUid}`, handleNewMessage);
