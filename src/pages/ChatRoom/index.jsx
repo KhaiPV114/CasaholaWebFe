@@ -55,7 +55,7 @@ const ChatRoom = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, setFilteredContacts]);
+  }, [user, setFilteredContacts, setUserContact, userContact, filteredContacts]);
 
   const getMsgSource = async (userChoose) => {
     if (!userChoose.status) {
