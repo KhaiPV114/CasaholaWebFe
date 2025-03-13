@@ -5,6 +5,9 @@ import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { Badge } from "antd";
+
+
 
 const NavbarLayout = () => {
     const [collapsed, setCollapsed] = useState(true);
@@ -28,6 +31,8 @@ const NavbarLayout = () => {
         navigate("/")
     }
 
+    const newMessagesCount = 3;
+
     return (
         <Sider
             trigger={null}
@@ -47,13 +52,15 @@ const NavbarLayout = () => {
                 <Menu.Item key="match" icon={<FileSearchOutlined />}>
                     <NavLink to="/roompreference">{!collapsed && "Tìm bạn ở ghép"}</NavLink>
                 </Menu.Item>
-                <Menu.Item key="news" icon={<MessageOutlined />}>
+                <Menu.Item key="messages" icon={<Badge count={newMessagesCount} size="small">
+                    <MessageOutlined />
+                </Badge>}>
                     <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
                 </Menu.Item>
-                <Menu.Item key="news" icon={<LikeOutlined />}>
+                <Menu.Item key="like" icon={<LikeOutlined />}>
                     <NavLink to="/userlikemelist">{!collapsed && "Danh sách thích"}</NavLink>
                 </Menu.Item>
-                <Menu.Item key="news" icon={<HeartOutlined />}>
+                <Menu.Item key="wait" icon={<HeartOutlined />}>
                     <NavLink to="/usermatchedlist">{!collapsed && "Danh sách chờ"}</NavLink>
                 </Menu.Item>
                 {/* <Menu.Item key="data" icon={<DatabaseOutlined />}>

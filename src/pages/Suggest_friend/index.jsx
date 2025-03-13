@@ -5,6 +5,8 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './suggest.scss';
 
+const { Meta } = Card;
+
 const { Title, Paragraph } = Typography;
 const PAGE_SIZE = 4; // Số người hiển thị mỗi trang
 
@@ -34,6 +36,9 @@ const Guess = ({ friend }) => {
   const startIndex = (currentPage - 1) * PAGE_SIZE;
   const paginatedProfiles = friend.slice(startIndex, startIndex + PAGE_SIZE);
 
+  console.log(selectedProfile); 
+
+
   return (
     <div className="guess-container">
       <div className="guess-header">
@@ -51,12 +56,15 @@ const Guess = ({ friend }) => {
             <Card
               hoverable
               className="profile-card"
-              style={{ height: "250px", transition: "transform 0.3s ease" }}
-              cover={<img className="profile-image" src={"./guess_test.jpg"} alt="Profile" />}
+              style={{ height: "300px", transition: "transform 0.3s ease" }}
               bordered={false}
               onClick={() => openProfileDetails(profile)}
             >
-              <Title level={5} className="profile-name">{profile.name} • {profile.school}</Title>
+              <img className="profile-image" src={profile.profileImage|| "./Profile.png"} alt="Profile"
+                style={{ width: "100%", height: "150px", objectFit: "cover" }} />
+
+              <Meta title={profile.fullName || "Tên chưa có"}/>
+
               <div className="action-buttons">
                 <Tooltip title="Từ chối">
                   <Button shape="circle" icon={<CloseOutlined />} className="reject-button" />
@@ -69,6 +77,7 @@ const Guess = ({ friend }) => {
                 </Tooltip>
               </div>
             </Card>
+
           </Col>
         ))}
       </Row>
