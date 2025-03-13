@@ -79,7 +79,7 @@ export const Msg = ({ sendUid, receiveUid, fetchData }) => {
       setMessages([...messages, { sender: "Bạn", text: input }]);
       socket.emit("createChat", { receiveUid: receiveUid, message: input });
       setInput("");
-      fetchData();
+      fetchData(new URLSearchParams(`?chooseUid=${receiveUid}`));
     }
   };
 
