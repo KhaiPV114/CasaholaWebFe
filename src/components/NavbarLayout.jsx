@@ -14,6 +14,9 @@ import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { Badge } from "antd";
+
+
 
 const NavbarLayout = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -30,64 +33,39 @@ const NavbarLayout = () => {
     }
   }, [user]);
 
-  const handlerSignOut = () => {
-    signOut();
-    setIsLogined(false);
-    showNotification("success", "Đăng xuất thành công!!!");
-    navigate("/");
-  };
+    const newMessagesCount = 3;
 
-  return (
-    <Sider
-      trigger={null}
-      collapsible
-      collapsed={collapsed}
-      onMouseEnter={() => setCollapsed(false)}
-      onMouseLeave={() => setCollapsed(true)}
-      style={{
-        background: "#d9d9d9",
-        transition: "width 0.3s",
-        width: collapsed ? "80px" : "200px",
-        zIndex: 1000,
-      }}
-    >
-      <Menu
-        mode="vertical"
-        className="side-menu"
-        style={{
-          background: "#d9d9d9",
-          width: collapsed ? "80px" : "200px",
-          height: "100%",
-          transition: "width 0.3s",
-        }}
-      >
-        <Menu.Item key="home" icon={<HomeOutlined />}>
-          <NavLink to="/">{!collapsed && "Trang chủ"}</NavLink>
-        </Menu.Item>
-        <Menu.Item key="test" icon={<BarChartOutlined />}>
-          <NavLink to="/testcharacter">
-            {!collapsed && "Test tính cách"}
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="match" icon={<FileSearchOutlined />}>
-          <NavLink to="/roompreference">
-            {!collapsed && "Tìm bạn ở ghép"}
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="news" icon={<MessageOutlined />}>
-          <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
-        </Menu.Item>
-        <Menu.Item key="likes" icon={<LikeOutlined />}>
-          <NavLink to="/userlikemelist">
-            {!collapsed && "Danh sách thích"}
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="waitting" icon={<HeartOutlined />}>
-          <NavLink to="/usermatchedlist">
-            {!collapsed && "Danh sách chờ"}
-          </NavLink>
-        </Menu.Item>
-        {/* <Menu.Item key="data" icon={<DatabaseOutlined />}>
+    return (
+        <Sider
+            trigger={null}
+            collapsible
+            collapsed={collapsed}
+            onMouseEnter={() => setCollapsed(false)}
+            onMouseLeave={() => setCollapsed(true)}
+            style={{ background: "#d9d9d9", transition: "width 0.3s", width: collapsed ? "80px" : "200px", zIndex: 1000 }}
+        >
+            <Menu mode="vertical" className="side-menu" style={{ background: "#d9d9d9", width: collapsed ? "80px" : "200px", height: "100%", transition: "width 0.3s", }}>
+                <Menu.Item key="home" icon={<HomeOutlined />}>
+                    <NavLink to="/">{!collapsed && "Trang chủ"}</NavLink>
+                </Menu.Item>
+                <Menu.Item key="test" icon={<BarChartOutlined />}>
+                    <NavLink to="/testcharacter">{!collapsed && "Test tính cách"}</NavLink>
+                </Menu.Item>
+                <Menu.Item key="match" icon={<FileSearchOutlined />}>
+                    <NavLink to="/roompreference">{!collapsed && "Tìm bạn ở ghép"}</NavLink>
+                </Menu.Item>
+                <Menu.Item key="messages" icon={<Badge count={newMessagesCount} size="small">
+                    <MessageOutlined />
+                </Badge>}>
+                    <NavLink to="/chatroom">{!collapsed && "Tin nhắn"}</NavLink>
+                </Menu.Item>
+                <Menu.Item key="like" icon={<LikeOutlined />}>
+                    <NavLink to="/userlikemelist">{!collapsed && "Danh sách thích"}</NavLink>
+                </Menu.Item>
+                <Menu.Item key="wait" icon={<HeartOutlined />}>
+                    <NavLink to="/usermatchedlist">{!collapsed && "Danh sách chờ"}</NavLink>
+                </Menu.Item>
+                {/* <Menu.Item key="data" icon={<DatabaseOutlined />}>
                     <NavLink to="/updatecriteria">{!collapsed && "Dữ liệu tính cách"}</NavLink>
                 </Menu.Item> */}
         {isLogined ? (
