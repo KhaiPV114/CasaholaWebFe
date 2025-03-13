@@ -1,121 +1,192 @@
-import React, { useState } from 'react';
-import { Card, Button, Row, Col, Typography, Tooltip, Image } from 'antd';
-import { CloseOutlined, HeartFilled, StarOutlined, MessageOutlined } from '@ant-design/icons';
-import './suggest.scss';
+import { clientToken } from "@/api";
+import { AuthContext } from "@/context/authContext";
+import { NotificationContext } from "@/context/notificationContext";
+import { CloseOutlined, HeartFilled, MessageOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Card,
+  Col,
+  Modal,
+  Pagination,
+  Row,
+  Tooltip,
+  Typography,
+} from "antd";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./suggest.scss";
+import { SocketContext } from "@/context/socketContext";
+
+const { Meta } = Card;
 
 const { Title, Paragraph } = Typography;
+const PAGE_SIZE = 4; // Số người hiển thị mỗi trang
 
-const initialProfiles = [
-  { id: 1, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 2, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 3, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 4, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 5, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 6, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 7, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 8, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 9, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 10, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-  { id: 11, name: 'Kieu Minh Trang', school: 'FPTU', location: 'Hòa Lạc, Hà Nội', workplace: 'Công ty 1 thành viên', address: 'Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long, Hà Nội', online: 'Trực tuyến' },
-];
+const Guess = ({ friend }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProfile, setSelectedProfile] = useState(null);
+  const { user, likes, setLikes, matchs } = useContext(AuthContext);
+  const { showNotification } = useContext(NotificationContext);
+  const navigate = useNavigate();
 
-const Guess = () => {
-  const [profiles, setProfiles] = useState(initialProfiles.slice(0, 4).map(profile => ({ ...profile, showDetails: false })));
-  const [showAdditional, setShowAdditional] = useState(false);
-  const [displayCount, setDisplayCount] = useState(4);
+  const { socket } = useContext(SocketContext);
 
-  const handleAddMoreResults = () => {
-    const newDisplayCount = displayCount + 4;
-    const newProfiles = initialProfiles.slice(0, newDisplayCount).map(profile => ({ ...profile, showDetails: false }));
-    setProfiles(newProfiles);
-    setDisplayCount(newDisplayCount);
-    if (newDisplayCount >= initialProfiles.length) {
-      setShowAdditional(true);
+  const openProfileDetails = (profile) => {
+    setSelectedProfile(profile);
+  };
+
+  const closeProfileDetails = () => {
+    setSelectedProfile(null);
+  };
+
+  const chatNow = (id) => {
+    if (user.packageType === "NONE" && !matchs.includes(id)) {
+      navigate("/package");
+    } else {
+      navigate(`/chatroom?chooseUid=${id}`);
     }
   };
 
-  const handleReset = () => {
-    const resetProfiles = initialProfiles.slice(0, 4).map(profile => ({ ...profile, showDetails: false }));
-    setProfiles(resetProfiles);
-    setDisplayCount(4);
-    setShowAdditional(false);
+  const like = (sourceUid) => {
+    clientToken
+      .post("likes", {
+        targetUid: user.id,
+        sourceUid,
+      })
+      .then(() => {
+        setLikes([...likes, sourceUid]);
+        showNotification("success", "Đã thêm vào khỏi danh sách yêu thích!");
+        socket.emit("likes", {
+          name: user.fullName,
+          receiveUid: sourceUid,
+        });
+      })
+      .catch(() => {
+        navigate("/500");
+      });
   };
 
-  const toggleDetails = (id) => {
-    setProfiles(profiles.map(profile => 
-      profile.id === id ? { ...profile, showDetails: !profile.showDetails } : profile
-    ));
+  const unlike = (sourceUid) => {
+    clientToken
+      .put("likes", {
+        targetUid: user.id,
+        sourceUid,
+      })
+      .then(() => {
+        setLikes(likes.filter((uid) => uid !== sourceUid));
+        showNotification("success", "Đã loại bỏ ra khỏi danh sách yêu thích!");
+        socket.emit("unlikes", {
+          receiveUid: sourceUid,
+        });
+      })
+      .catch(() => {
+        navigate("/500");
+      });
   };
+
+  // Xác định dữ liệu trang hiện tại
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const paginatedProfiles = friend.slice(startIndex, startIndex + PAGE_SIZE);
+
+  console.log(selectedProfile);
 
   return (
     <div className="guess-container">
       <div className="guess-header">
-        <Title level={2} style={{ color: 'white', margin: '0' }}>GỢI Ý BẠN TRỢ</Title>
-        <Paragraph style={{ color: 'white', marginTop: '8px' }}>
+        <Title level={2} style={{ color: "white", margin: "0" }}>
+          GỢI Ý BẠN TRỢ
+        </Title>
+        <Paragraph style={{ color: "white", marginTop: "8px" }}>
           Chọn bất kỳ gợi ý bạn trợ phù hợp với bạn
         </Paragraph>
       </div>
-      
+
       <Row gutter={[16, 16]} className="profile-row">
-        {profiles.map(profile => (
+        {paginatedProfiles.map((profile) => (
           <Col xs={24} sm={12} md={8} lg={6} key={profile.id}>
-            <div className="profile-wrapper">
-              <Card
-                className="profile-card"
-                cover={
-                  <div className="profile-cover">
-                    <img className="profile-image" src="./guess_test.jpg" />
-                    <div className="profile-text-bottom">
-                      <Title level={5} className="profile-name">
-                        {profile.name} • {profile.school}
-                      </Title>
-                      {profile.showDetails && (
-                        <>
-                          <Paragraph className="profile-text">{profile.location}</Paragraph>
-                          <Paragraph className="profile-text">{profile.workplace}</Paragraph>
-                          <Paragraph className="profile-text">Địa chỉ: {profile.address}</Paragraph>
-                          <Paragraph className="profile-text">Hoạt động: {profile.online}</Paragraph>
-                        </>
-                      )}
-                      <Button 
-                        type="link" 
-                        onClick={() => toggleDetails(profile.id)}
-                        className="toggle-details-button"
-                      >
-                        {profile.showDetails ? 'Ẩn bớt' : 'Xem thêm'}
-                      </Button>
-                    </div>
-                    
-                    <div className="action-buttons">
-                      <Tooltip title="Từ chối">
-                        <Button shape="circle" icon={<CloseOutlined />} className="reject-button" />
-                      </Tooltip>
-                      <Tooltip title="Thích">
-                        <Button shape="circle" icon={<HeartFilled />} className="like-button" />
-                      </Tooltip>
-                      <Tooltip title="Đánh dấu">
-                        <Button shape="circle" icon={<StarOutlined />} className="star-button" />
-                      </Tooltip>
-                    </div>
-                  </div>
-                }
-                bordered={false}
-              >
-              </Card>
-              <Button className="chat-button" icon={<MessageOutlined />}>TRÒ CHUYỆN NGAY</Button>
-            </div>
+            <Card
+              hoverable
+              className="profile-card"
+              style={{ height: "300px", transition: "transform 0.3s ease" }}
+              bordered={false}
+            >
+              <img
+                className="profile-image"
+                src={profile.profileImage || "./Profile.png"}
+                alt="Profile"
+                style={{ width: "100%", height: "150px", objectFit: "cover" }}
+              />
+
+              <Meta title={profile.fullName || "Tên chưa có"} />
+
+              <div className="action-buttons">
+                {likes && likes.includes(profile._id) && (
+                  <Tooltip title="Bỏ thích">
+                    <Button
+                      shape="circle"
+                      icon={<CloseOutlined />}
+                      className="reject-button"
+                      onClick={() => unlike(profile._id)}
+                    />
+                  </Tooltip>
+                )}
+
+                {likes && !likes.includes(profile._id) && (
+                  <Tooltip title="Thích">
+                    <Button
+                      shape="circle"
+                      icon={<HeartFilled />}
+                      className="like-button"
+                      onClick={() => like(profile._id)}
+                    />
+                  </Tooltip>
+                )}
+
+                <Tooltip title="Chát ngay">
+                  <Button
+                    shape="circle"
+                    icon={<MessageOutlined />}
+                    className="star-button"
+                    onClick={() => openProfileDetails(profile)}
+                  />
+                </Tooltip>
+              </div>
+            </Card>
           </Col>
         ))}
       </Row>
-      
-      <div className="action-buttons-container">
-        <Button className="add-results-button" onClick={handleAddMoreResults} disabled={showAdditional}>
-          THÊM KẾT QUẢ
-        </Button>
-        <Button className="reset-button" onClick={handleReset}>
-          QUAY LẠI
-        </Button>
+
+      {/* Phân trang */}
+      <div className="pagination-container">
+        <Pagination
+          current={currentPage}
+          total={friend.length}
+          pageSize={PAGE_SIZE}
+          onChange={(page) => setCurrentPage(page)}
+        />
       </div>
+
+      {selectedProfile && (
+        <Modal
+          open={!!selectedProfile}
+          title={selectedProfile.name}
+          onCancel={closeProfileDetails}
+          footer={null}
+          width={600}
+        >
+          <Paragraph>{selectedProfile.za}</Paragraph>
+          <Paragraph>{selectedProfile.workplace}</Paragraph>
+          <Paragraph>Địa chỉ: {selectedProfile.address}</Paragraph>
+          <Paragraph>Hoạt động: {selectedProfile.online}</Paragraph>
+          <Button
+            type="primary"
+            onClick={() => chatNow(selectedProfile._id)}
+            icon={<MessageOutlined />}
+          >
+            TRÒ CHUYỆN NGAY
+          </Button>
+        </Modal>
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import { createContext } from "react";
 
-export const UseNotification = createContext();
+export const NotificationContext = createContext();
 
 export const NotificationProvider = ({children}) => {
 
@@ -12,8 +12,8 @@ export const NotificationProvider = ({children}) => {
       };
 
     return (
-        <UseNotification.Provider value={{ showNotification }}>
+        <NotificationContext.Provider value={{ showNotification }}>
           {children}
-        </UseNotification.Provider>
+        </NotificationContext.Provider>
       );
 }

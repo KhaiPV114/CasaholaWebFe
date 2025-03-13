@@ -1,10 +1,13 @@
 import { Button, Col, Row, Typography } from 'antd';
 import React from 'react';
 import './testcharacter.scss';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Text } = Typography;
  
 const TestCharacter = () => {
+
+    const navigate = useNavigate()
     return (
         <div className="test-character">
             <div className="image-placeholder">
@@ -35,7 +38,7 @@ const TestCharacter = () => {
                         <Text className="description">
                             Kết quả trắc nghiệm tính cách giúp bạn hiểu rõ điểm mạnh, điểm yếu và động lực của bản thân. Từ đó CASAHOLA sẽ đưa ra gợi ý cho bạn về những kiểu tính cách tương hợp giúp bạn tìm được bạn cùng phòng ưng ý và tránh rủi ro cao nhất.
                         </Text>
-                        <Button type="primary" size="large" className="cta-button">
+                        <Button type="primary" size="large" onClick={() => navigate('/quiz')} className="cta-button">
                             Làm Trắc Nghiệm
                         </Button>
                     </Col>
