@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Row, Col, Button } from "antd";
 import {
   CheckCircleFilled,
@@ -15,8 +15,15 @@ import { AuthContext } from "@/context/authContext";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const { user, remember } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!user && token) {
+      remember();
+    }
+  }, [user, remember]);
   return (
     <Content>
       <Row className={s.section}>
@@ -74,18 +81,30 @@ const Home = () => {
             CASA HOLA dựa trên tính cách và nhu cầu cá nhân giúp bạn dễ dàng
             trong việc tìm kiếm <strong>BẠN Ở GHÉP</strong> trực tuyến!
           </Paragraph>
-          <Row className={s.card} style={{ display: "flex", justifyContent: "center" }} justify="center">
+          <Row
+            className={s.card}
+            style={{ display: "flex", justifyContent: "center" }}
+            justify="center"
+          >
             <Col span={6} style={{ display: "flex", justifyContent: "center" }}>
-              <CustomCardHome url="./TestCharacter.png" title="TRẮC NGHIỆM TÍNH CÁCH MIỄN PHÍ" />
+              <CustomCardHome
+                url="./TestCharacter.png"
+                title="TRẮC NGHIỆM TÍNH CÁCH MIỄN PHÍ"
+              />
             </Col>
             <Col span={6} style={{ display: "flex", justifyContent: "center" }}>
-              <CustomCardHome url="./Feature2.png" title="XÁC ĐỊNH YẾU TỐ TRONG BẢN ĐỒ SAO CÁ NHÂN" />
+              <CustomCardHome
+                url="./Feature2.png"
+                title="XÁC ĐỊNH YẾU TỐ TRONG BẢN ĐỒ SAO CÁ NHÂN"
+              />
             </Col>
             <Col span={6} style={{ display: "flex", justifyContent: "center" }}>
-              <CustomCardHome url="./Feature3.png" title="LỌC NHU CẦU, GHÉP TÌM NHANH CHÓNG" />
+              <CustomCardHome
+                url="./Feature3.png"
+                title="LỌC NHU CẦU, GHÉP TÌM NHANH CHÓNG"
+              />
             </Col>
           </Row>
-
         </Col>
       </Row>
 
@@ -212,5 +231,5 @@ const Home = () => {
       </div>
     </Content>
   );
-}
+};
 export default Home;

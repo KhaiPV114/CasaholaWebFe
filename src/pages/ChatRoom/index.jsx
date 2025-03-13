@@ -14,8 +14,7 @@ const ChatRoom = () => {
   const [userSource, setUserSource] = useState(null);
   const [filteredContacts, setFilteredContacts] = useState([]);
   const location = useLocation();
-
-  const { user, remember } = useContext(AuthContext);
+  const { user, remember, setChats } = useContext(AuthContext);
 
   useEffect(() => {
     if (!user) {
@@ -35,9 +34,10 @@ const ChatRoom = () => {
       );
 
       let matchingSource = null;
-      if (params?.chooseUid) {
+
+      if (params?.get("chooseUid")) {
         matchingSource = response.data.find(
-          (contact) => contact._id === params.chooseUid
+          (contact) => contact._id === params.get("chooseUid")
         );
       }
 
@@ -55,9 +55,18 @@ const ChatRoom = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user, setFilteredContacts]);
 
-  const getMsgSource = (userChoose) => {
+  const getMsgSource = async (userChoose) => {
+    if (!userChoose.status) {
+      const res = await clientToken.put(
+        `chat/read/${user.id}/${userChoose._id}`
+      );
+      if (res?.data >= 0) {
+        setChats(res.data);
+        fetchData();
+      }
+    }
     setUserSource(userChoose);
   };
 
@@ -106,6 +115,18 @@ const ChatRoom = () => {
               >
                 {u.fullName}
               </Text>
+              {u.lastSend !== user?.id && u.status === false && (
+                <div
+                  className=""
+                  style={{
+                    flexGrow: "1",
+                    textAlign: "end",
+                    paddingRight: "5px",
+                  }}
+                >
+                  O
+                </div>
+              )}
             </div>
           ))}
         </div>

@@ -1,8 +1,23 @@
 import { client } from "@/api";
-import { EyeInvisibleOutlined, EyeTwoTone, PlusOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Divider, Form, Input, Modal, notification, Radio, Typography, Upload } from "antd";
-import dayjs from 'dayjs';
-import { useEffect, useState } from "react";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  PlusOutlined,
+} from "@ant-design/icons";
+import {
+  Button,
+  DatePicker,
+  Divider,
+  Form,
+  Input,
+  Modal,
+  notification,
+  Radio,
+  Typography,
+  Upload,
+} from "antd";
+import dayjs from "dayjs";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -11,7 +26,7 @@ const Register = () => {
   const [profileBase64, setProfileBase64] = useState(null);
 
   const navigate = useNavigate();
-  const dateFormat = 'YYYY/MM/DD';
+  const dateFormat = "YYYY/MM/DD";
 
   // Hiển thị thông báo
   const openNotificationWithIcon = (type, msg) => {
@@ -40,43 +55,52 @@ const Register = () => {
     setIconBase64(base64);
     console.log("Icon Base64 đã cập nhật:", base64);
   };
-  
+
   const handleUploadProfile = async ({ file }) => {
     if (!file) return;
     const base64 = await getBase64(file);
     setProfileBase64(base64);
     console.log("Profile Base64 đã cập nhật:", base64);
   };
-  
+
   const onFinish = (values) => {
     if (values.dob) {
       values.dob = dayjs(values.dob).format(dateFormat);
     }
-  
+
     // Kiểm tra giá trị ảnh trước khi gửi
     console.log("Ảnh Icon trước khi gửi:", iconBase64);
     console.log("Ảnh Profile trước khi gửi:", profileBase64);
-  
+
     const payload = {
       ...values,
       identificationImage: iconBase64,
       profileImage: profileBase64,
     };
-  
+
     console.log("Dữ liệu gửi đi:", payload);
-    
-    client.post('auth/register', payload)
+
+    client
+      .post("auth/register", payload)
       .then(() => {
-        openNotificationWithIcon('success', "Đăng ký thành công!!!");
+        openNotificationWithIcon("success", "Đăng ký thành công!!!");
         navigate("/login");
       })
       .catch(() => {
-        openNotificationWithIcon('error', "Email đã tồn tại!!!");
+        openNotificationWithIcon("error", "Email đã tồn tại!!!");
       });
   };
-  
+
   return (
-    <div style={{ backgroundColor: "#FA6400", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div
+      style={{
+        backgroundColor: "#FA6400",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Modal
         open={visible}
         onCancel={() => setVisible(false)}
@@ -90,33 +114,61 @@ const Register = () => {
         <Divider />
 
         <Form layout="vertical" onFinish={onFinish}>
-          <Form.Item label="Your email" name="email" rules={[
-            { required: true, message: "Please enter your email!" },
-            { type: "email", message: "Invalid email format!" }
-          ]}>
+          <Form.Item
+            label="Your email"
+            name="email"
+            rules={[
+              { required: true, message: "Please enter your email!" },
+              { type: "email", message: "Invalid email format!" },
+            ]}
+          >
             <Input placeholder="Enter your email" />
           </Form.Item>
 
-          <Form.Item label="Your password" name="password" rules={[{ required: true, message: "Please enter your password!" }]}>
+          <Form.Item
+            label="Your password"
+            name="password"
+            rules={[{ required: true, message: "Please enter your password!" }]}
+          >
             <Input.Password
               placeholder="Enter your password"
-              iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+              }
             />
           </Form.Item>
 
-          <Form.Item label="Your name" name="fullName" rules={[{ required: true, message: "Please enter your name" }]}>
+          <Form.Item
+            label="Your name"
+            name="fullName"
+            rules={[{ required: true, message: "Please enter your name" }]}
+          >
             <Input placeholder="Enter your name" />
           </Form.Item>
 
-          <Form.Item label="Your phone number" name="phoneNumber" rules={[{ required: true, message: "Please enter your phone number!" }]}>
+          <Form.Item
+            label="Your phone number"
+            name="phoneNumber"
+            rules={[
+              { required: true, message: "Please enter your phone number!" },
+            ]}
+          >
             <Input placeholder="Enter your phone number" />
           </Form.Item>
 
-          <Form.Item label="Your date of birth" name="dob" rules={[{ required: true, message: "Please enter your dob!" }]}>
+          <Form.Item
+            label="Your date of birth"
+            name="dob"
+            rules={[{ required: true, message: "Please enter your dob!" }]}
+          >
             <DatePicker format={dateFormat} />
           </Form.Item>
 
-          <Form.Item label="Your gender" name="gender" rules={[{ required: true, message: "Please enter your gender!" }]}>
+          <Form.Item
+            label="Your gender"
+            name="gender"
+            rules={[{ required: true, message: "Please enter your gender!" }]}
+          >
             <Radio.Group
               options={[
                 { value: "Nam", label: "Nam" },
@@ -126,7 +178,10 @@ const Register = () => {
           </Form.Item>
 
           {/* Upload Ảnh Icon */}
-          <Form.Item label="Upload Ảnh Icon" rules={[{ required: true, message: "Please upload an image!" }]}>
+          <Form.Item
+            label="Upload Ảnh Icon"
+            rules={[{ required: true, message: "Please upload an image!" }]}
+          >
             <Upload
               listType="picture-card"
               beforeUpload={() => false} // Ngăn upload tự động
@@ -134,7 +189,11 @@ const Register = () => {
               onChange={handleUploadIcon}
             >
               {iconBase64 ? (
-                <img src={iconBase64} alt="icon" style={{ width: "100%", height:"100%" }} />
+                <img
+                  src={iconBase64}
+                  alt="icon"
+                  style={{ width: "100%", height: "100%" }}
+                />
               ) : (
                 <div>
                   <PlusOutlined />
@@ -145,7 +204,10 @@ const Register = () => {
           </Form.Item>
 
           {/* Upload Ảnh Profile */}
-          <Form.Item label="Upload Ảnh Profile" rules={[{ required: true, message: "Please upload an image!" }]}>
+          <Form.Item
+            label="Upload Ảnh Profile"
+            rules={[{ required: true, message: "Please upload an image!" }]}
+          >
             <Upload
               listType="picture-card"
               beforeUpload={() => false}
@@ -153,7 +215,11 @@ const Register = () => {
               onChange={handleUploadProfile} // Dùng customRequest để xử lý ảnh
             >
               {profileBase64 ? (
-                <img src={profileBase64} alt="profile"style={{ width: "100%", height:"100%" }}/>
+                <img
+                  src={profileBase64}
+                  alt="profile"
+                  style={{ width: "100%", height: "100%" }}
+                />
               ) : (
                 <div>
                   <PlusOutlined />
@@ -163,10 +229,20 @@ const Register = () => {
             </Upload>
           </Form.Item>
 
-          <Button htmlType="submit" type="primary" block style={{ marginTop: 20 }}>
+          <Button
+            htmlType="submit"
+            type="primary"
+            block
+            style={{ marginTop: 20 }}
+          >
             Accept
           </Button>
-          <Button type="link" block style={{ marginTop: 10 }} onClick={navigate("/login")}>
+          <Button
+            type="link"
+            block
+            style={{ marginTop: 10 }}
+            onClick={navigate("/login")}
+          >
             Back
           </Button>
         </Form>

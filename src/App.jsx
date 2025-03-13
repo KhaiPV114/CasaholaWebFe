@@ -7,15 +7,18 @@ import "antd/dist/reset.css";
 import { UserProvider } from "./context/authContext";
 import { NotificationProvider } from "./context/notificationContext";
 import AppRoutes from "./routes/AppRoutes";
+import { SocketProvider } from "./context/socketContext";
 const App = () => {
   return (
     <Provider store={store}>
       <UserProvider>
-          <ConfigProvider theme={{ token: { colorPrimary: "#1890ff" } }}>
-            <NotificationProvider>
+        <NotificationProvider>
+          <SocketProvider>
+            <ConfigProvider theme={{ token: { colorPrimary: "#1890ff" } }}>
               <AppRoutes />
-            </NotificationProvider>
-          </ConfigProvider>
+            </ConfigProvider>
+          </SocketProvider>
+        </NotificationProvider>
       </UserProvider>
     </Provider>
   );

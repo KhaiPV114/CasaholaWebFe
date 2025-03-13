@@ -1,6 +1,3 @@
-import { AuthContext } from "@/context/authContext";
-import { NotificationContext } from "@/context/notificationContext";
-import { socket } from "@/context/socketContext";
 import MainLayout from "@/layouts/MainLayout";
 import About from "@/pages/About";
 import ChangePassword from "@/pages/ChangePassword";
@@ -27,28 +24,9 @@ import UserManagement from "@/pages/UserManagement";
 import MatchedUsers from "@/pages/UserMatchedList";
 import VnPayReturn from "@/pages/vnpay";
 import YourPreferenceForm from "@/pages/YourPreference";
-import { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const AppRoutes = () => {
-  const { user } = useContext(AuthContext);
-  const { showNotification } = useContext(NotificationContext);
-
-  useEffect(() => {
-    if (!user) return;
-
-    const sh = (data) => {
-      if (data.id === user.id) return;
-      showNotification("success", "Bạn có 1 tin nhắn mới!");
-    };
-
-    socket.on(`tb${user.id}`, sh);
-
-    return () => {
-      socket.off(`tb${user.id}`, sh);
-    };
-  }, [user, showNotification]);
-  
   return (
     <BrowserRouter>
       <Routes>

@@ -32,8 +32,9 @@ const VnPayReturn = () => {
         client
           .post("auth/account-remember", { token })
           .then((res) => {
-            const { user, accessToken, refreshToken, likes, matchs } = res.data;
-            signIn(user, accessToken, refreshToken, likes, matchs);
+            const { user, accessToken, refreshToken, likes, matchs, chats } =
+              res.data;
+            signIn(user, accessToken, refreshToken, likes, matchs, chats);
           })
           .catch(() => {
             signOut();

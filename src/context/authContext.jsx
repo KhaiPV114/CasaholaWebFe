@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [likes, setLikes] = useState([]);
+  const [chats, setChats] = useState([]);
   const [matchs, setMatchs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,10 +17,12 @@ export const UserProvider = ({ children }) => {
     accessToken,
     refreshToken,
     likesData,
-    matchsData
+    matchsData,
+    chatsData
   ) => {
     setUser(userData);
     setLikes(likesData);
+    setChats(chatsData);
     setMatchs(matchsData);
     localStorage.setItem("accessToken", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
@@ -40,8 +43,9 @@ export const UserProvider = ({ children }) => {
     client
       .post("auth/account-remember", { token })
       .then((res) => {
-        const { user, accessToken, refreshToken, likes, matchs } = res.data;
-        signIn(user, accessToken, refreshToken, likes, matchs);
+        const { user, accessToken, refreshToken, likes, matchs, chats } =
+          res.data;
+        signIn(user, accessToken, refreshToken, likes, matchs, chats);
       })
       .catch(() => {
         signOut();
@@ -63,6 +67,9 @@ export const UserProvider = ({ children }) => {
         setLikes,
         likes,
         matchs,
+        setMatchs,
+        chats,
+        setChats,
       }}
     >
       {children}

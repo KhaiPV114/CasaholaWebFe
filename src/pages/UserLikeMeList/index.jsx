@@ -10,11 +10,8 @@ const LikedUsers = () => {
   useEffect(() => {
     if (!user) {
       remember();
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     try {
       clientToken
         .get(`users/likes/${user.id}`)
@@ -27,7 +24,7 @@ const LikedUsers = () => {
     } catch (error) {
       window.location.href = "/login";
     }
-  }, [user, setLikedUsers]);
+  }, [user, setLikedUsers, remember]);
 
   //   const convertAge = (dob) => {
   //     const today = new Date();

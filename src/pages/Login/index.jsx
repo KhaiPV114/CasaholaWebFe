@@ -21,8 +21,9 @@ const Login = () => {
     client
       .post("auth/login/local", values)
       .then((res) => {
-        const { user, accessToken, refreshToken, likes, matchs } = res.data;
-        signIn(user, accessToken, refreshToken, likes, matchs);
+        const { user, accessToken, refreshToken, likes, matchs, chats } =
+          res.data;
+        signIn(user, accessToken, refreshToken, likes, matchs, chats);
         showNotification("success", "Đăng nhập thành công!");
         navigate("/yourpreference");
       })

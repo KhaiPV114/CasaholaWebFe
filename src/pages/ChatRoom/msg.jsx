@@ -1,7 +1,7 @@
 import { clientToken } from "@/api";
 import { AuthContext } from "@/context/authContext";
 import { NotificationContext } from "@/context/notificationContext";
-import { socket } from "@/context/socketContext";
+import { SocketContext } from "@/context/socketContext";
 import {
   GifOutlined,
   PictureOutlined,
@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Msg = ({ sendUid, receiveUid, fetchData }) => {
   const [messages, setMessages] = useState([]);
-  //   const { socket } = useContext(WebSocketContext);
+  const { socket } = useContext(SocketContext);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
@@ -53,7 +53,6 @@ export const Msg = ({ sendUid, receiveUid, fetchData }) => {
           { sender: data.sender, text: data.message },
         ]);
       }
-
       fetchData();
     };
 
@@ -80,6 +79,7 @@ export const Msg = ({ sendUid, receiveUid, fetchData }) => {
       setMessages([...messages, { sender: "Bạn", text: input }]);
       socket.emit("createChat", { receiveUid: receiveUid, message: input });
       setInput("");
+      fetchData();
     }
   };
 

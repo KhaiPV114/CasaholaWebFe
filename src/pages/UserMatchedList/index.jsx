@@ -13,14 +13,19 @@ const MatchedUsers = () => {
   const navigate = useNavigate();
   const { user, remember } = useContext(AuthContext);
 
+  // useEffect(() => {
+  //   if (!user) {
+  //     remember();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
   useEffect(() => {
     if (!user) {
       remember();
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  useEffect(() => {
     try {
       clientToken
         .get(`users/matchs/${user.id}`)
@@ -32,9 +37,10 @@ const MatchedUsers = () => {
           window.location.href = "/500";
         });
     } catch (error) {
-      window.location.href = "/login";
+      console.log("error", error);
+      // window.location.href = "/login";
     }
-  }, [user, setUserMatchs]);
+  }, [user, setUserMatchs, remember]);
 
   const changePage = (page) => {
     setCurrentPage(page);
