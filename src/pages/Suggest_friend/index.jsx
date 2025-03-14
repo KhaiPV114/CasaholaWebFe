@@ -17,10 +17,10 @@ import { useNavigate } from "react-router-dom";
 import "./suggest.scss";
 import { SocketContext } from "@/context/socketContext";
 
-const { Meta } = Card;
+
 
 const { Title, Paragraph } = Typography;
-const PAGE_SIZE = 4; // Số người hiển thị mỗi trang
+const PAGE_SIZE = 16; // Số người hiển thị mỗi trang
 
 const Guess = ({ friend }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -106,18 +106,44 @@ const Guess = ({ friend }) => {
           <Col xs={24} sm={12} md={8} lg={6} key={profile.id}>
             <Card
               hoverable
-              className="profile-card"
-              style={{ height: "300px", transition: "transform 0.3s ease" }}
-              bordered={false}
+              style={{
+                width: "200px",
+                borderRadius: "10px",
+                textAlign: "center",
+                background: "#FFF",
+                boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
+              }}
+              cover={
+                <img
+                  alt={profile.fullName}
+                  src={profile.profileImage}
+                  style={{
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
+                    height: "150px",
+                    objectFit: "cover",
+                  }}
+                />
+              }
             >
               <img
                 className="profile-image"
-                src={profile.profileImage || "./Profile.png"}
+                src={profile.profileImage || "/Profile.jpg"}
                 alt="Profile"
                 style={{ width: "100%", height: "150px", objectFit: "cover" }}
               />
 
-              <Meta title={profile.fullName || "Tên chưa có"} />
+              <h4 style={{ fontWeight: "bold", fontSize: "14px" }}>
+                {profile.fullName}
+                {/* 🔺 {user.university} */}
+              </h4>
+              <p style={{ fontSize: "12px", color: "#666" }}>
+                Tháng {new Date(profile.dob).getMonth()} -{" "}
+                {new Date(profile.dob).getFullYear()}
+              </p>
+              <p style={{ fontSize: "12px", color: "#999" }}>
+                {profile.interests}
+              </p>
 
               <div className="action-buttons">
                 {likes && likes.includes(profile._id) && (
@@ -126,6 +152,7 @@ const Guess = ({ friend }) => {
                       shape="circle"
                       icon={<CloseOutlined />}
                       className="reject-button"
+                      style={{top: "20px"}}
                       onClick={() => unlike(profile._id)}
                     />
                   </Tooltip>
@@ -137,6 +164,7 @@ const Guess = ({ friend }) => {
                       shape="circle"
                       icon={<HeartFilled />}
                       className="like-button"
+                      style={{top: "20px"}}
                       onClick={() => like(profile._id)}
                     />
                   </Tooltip>
@@ -148,6 +176,7 @@ const Guess = ({ friend }) => {
                     icon={<MessageOutlined />}
                     className="star-button"
                     onClick={() => openProfileDetails(profile)}
+                    style={{top: "20px"}}
                   />
                 </Tooltip>
               </div>

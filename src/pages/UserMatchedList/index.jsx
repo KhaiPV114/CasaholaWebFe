@@ -84,7 +84,7 @@ const MatchedUsers = () => {
               cover={
                 <img
                   alt={user.fullName}
-                  src={user.profileImage}
+                  src={user.profileImage || "/Profile.jpg"}
                   style={{
                     borderTopLeftRadius: "10px",
                     borderTopRightRadius: "10px",
