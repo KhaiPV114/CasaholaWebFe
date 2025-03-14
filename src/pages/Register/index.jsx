@@ -241,7 +241,7 @@ const Register = () => {
             type="link"
             block
             style={{ marginTop: 10 }}
-            onClick={navigate("/login")}
+            onClick={() => navigate("/login")}
           >
             Back
           </Button>
