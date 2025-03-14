@@ -72,7 +72,7 @@ const ChatRoom = () => {
 
   const setSearchTerm = (key) => {
     const users = userContact.filter((u) =>
-      u.fullName.toLowerCase().includes(key || "")
+      u.fullName.toLowerCase().includes(key.toLowerCase() || "")
     );
 
     setFilteredContacts(users);
