@@ -35,6 +35,7 @@ const NavbarLayout = () => {
   const handlerSignOut = () => {
     signOut();
     setIsLogined(false);
+    setIsLogout(false);
     showNotification("success", "Đăng xuất thành công!!!");
     navigate("/");
   };
