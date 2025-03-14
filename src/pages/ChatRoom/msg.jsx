@@ -81,6 +81,7 @@ export const Msg = ({ sendUid, receiveUid, fetchData }) => {
         "createChat",
         { receiveUid: receiveUid, message: input },
         () => {
+          console.log("callback emit");
           setInput("");
           fetchData(new URLSearchParams(`?chooseUid=${receiveUid}`));
         }
