@@ -129,7 +129,7 @@ const NavbarLayout = () => {
         width={600}
       >
         <div>
-          <Button>Không</Button>
+          <Button onClick={() => setIsLogout(false)>Không</Button>
           <Button onClick={handlerSignOut}>Có</Button>
         </div>
       </Modal>
