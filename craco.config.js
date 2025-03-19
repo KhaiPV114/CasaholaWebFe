@@ -5,5 +5,13 @@ module.exports = {
         alias: {
             '@': path.resolve(__dirname, 'src'),
         },
+        // configure: (webpackConfig) => {
+        //     if (process.env.NODE_ENV === 'production') {
+        //       webpackConfig.devtool = false; production
+        //     }
+        //     return webpackConfig;
+        //   },
+      
     },
 };
+

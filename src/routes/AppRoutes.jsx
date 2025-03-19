@@ -27,6 +27,8 @@ import YourPreferenceForm from "@/pages/YourPreference";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const AppRoutes = () => {
+  console.log("khhjkhjk");
+  
   return (
     <BrowserRouter>
       <Routes>

@@ -9,6 +9,7 @@ import {
   LoginOutlined,
   LogoutOutlined,
   MessageOutlined,
+  WalletOutlined,
 } from "@ant-design/icons";
 import { Button, Menu, Modal } from "antd";
 import Sider from "antd/es/layout/Sider";
@@ -96,6 +97,11 @@ const NavbarLayout = () => {
           <Menu.Item key="wait" icon={<HeartOutlined />}>
             <NavLink to="/usermatchedlist">
               {!collapsed && "Danh sách chờ"}
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="package" icon={<WalletOutlined />}>
+            <NavLink to="/package">
+              {!collapsed && "Đăng ký gói"}
             </NavLink>
           </Menu.Item>
           {/* <Menu.Item key="data" icon={<DatabaseOutlined />}>
