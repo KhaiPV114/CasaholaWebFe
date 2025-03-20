@@ -22,7 +22,7 @@ import TrafficChart from "@/pages/Traffic";
 import UpdateCriteriaPage from "@/pages/UpdateCriteria";
 import UserEditForm from "@/pages/UserInfor";
 import LikedUsers from "@/pages/UserLikeMeList";
-import UserManagement from "@/pages/UserManagement";
+// import UserManagement from "@/pages/UserManagement";
 import MatchedUsers from "@/pages/UserMatchedList";
 import VnPayReturn from "@/pages/vnpay";
 import YourPreferenceForm from "@/pages/YourPreference";

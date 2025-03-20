@@ -11,7 +11,6 @@ export const UserProvider = ({ children }) => {
   const [chats, setChats] = useState([]);
   const [matchs, setMatchs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [account, setAccount] = useState();
 
   const signIn = (
     userData,
