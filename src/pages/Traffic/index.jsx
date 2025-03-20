@@ -18,7 +18,15 @@ const data = [
   { date: "2024-03-14", visits: 26 },
   { date: "2024-03-15", visits: 20 },
   { date: "2024-03-16", visits: 22 },
+  { date: "2024-03-17", visits: 26 },
+  { date: "2024-03-18", visits: 19 },
+  { date: "2024-03-19", visits: 22 },
+  { date: "2024-03-20", visits: 28 },
+  { date: "2024-03-21", visits: 23 },
 ];
+
+// Tính tổng lượng truy cập
+const totalVisits = data.reduce((sum, item) => sum + item.visits, 0);
 
 const userGrowthData = data.map((item, index) => ({
   date: item.date,
@@ -40,35 +48,40 @@ const TrafficChart = () => {
             <Statistic title="Tổng số tài khoản đăng ký" value={totalRegistrations} valueStyle={{ color: "#FFA401" }} />
           </Card>
         </Col>
+        <Col span={12}>
+          <Card bordered={false}>
+            <Statistic title="Tổng lượng truy cập" value={totalVisits} valueStyle={{ color: "#F95B01" }} />
+          </Card>
+        </Col>
       </Row>
 
-      <div style={{display:"flex", justifyContent:"space-between"}}>
-      <Card className="shadow-lg rounded-2xl mb-6" bordered={false} style={{ padding: "20px" , width:"100%"}}>
-        <h2 className="text-xl font-semibold text-[#F95B01] mb-4">Lượt truy cập theo ngày</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" stroke="#FFA401" />
-            <YAxis stroke="#FFA401" />
-            <Tooltip />
-            <Line type="monotone" dataKey="visits" stroke="#F95B01" strokeWidth={3} dot={{ r: 5 }} />
-          </LineChart>
-        </ResponsiveContainer>
-      </Card>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Card className="shadow-lg rounded-2xl mb-6" bordered={false} style={{ padding: "20px", width: "100%" }}>
+          <h2 className="text-xl font-semibold text-[#F95B01] mb-4">Lượt truy cập theo ngày</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" stroke="#FFA401" />
+              <YAxis stroke="#FFA401" />
+              <Tooltip />
+              <Line type="monotone" dataKey="visits" stroke="#F95B01" strokeWidth={3} dot={{ r: 5 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </Card>
 
-      <Card className="shadow-lg rounded-2xl" bordered={false} style={{ padding: "20px" , width:"100%"}}>
-        <h2 className="text-xl font-semibold text-[#F95B01] mb-4">Số lượng người dùng tăng theo ngày</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={userGrowthData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" stroke="#FFA401" />
-            <YAxis stroke="#FFA401" />
-            <Tooltip />
-            <Line type="monotone" dataKey="users" stroke="#0088FE" strokeWidth={3} dot={{ r: 5 }} />
-          </LineChart>
-        </ResponsiveContainer>
-      </Card>
-    </div>
+        <Card className="shadow-lg rounded-2xl" bordered={false} style={{ padding: "20px", width: "100%" }}>
+          <h2 className="text-xl font-semibold text-[#F95B01] mb-4">Số lượng người dùng tăng theo ngày</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={userGrowthData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" stroke="#FFA401" />
+              <YAxis stroke="#FFA401" />
+              <Tooltip />
+              <Line type="monotone" dataKey="users" stroke="#0088FE" strokeWidth={3} dot={{ r: 5 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </Card>
+      </div>
     </div>
   );
 };
