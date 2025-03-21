@@ -30,7 +30,7 @@ const packages = {
       GOLD
     </Button>
   ),
-  PREMIUM: (
+  PLATINUM: (
     <Button color="danger" variant="outlined">
       PREMIUM
     </Button>
@@ -39,6 +39,8 @@ const packages = {
 
 export default function HeaderLayout() {
   const { user } = useContext(AuthContext);
+  
+  console.log("package: " + user);
   
 
   const profileMenu = (
@@ -99,7 +101,7 @@ export default function HeaderLayout() {
           prefix={<SearchOutlined style={{ color: "#ff6600" }} />}
         />
         <Space size="middle" align="center">
-          {user?.packageType && packages[user.packageType]}
+        {user?.packageType && packages[user.packageType]}
           {user && (
             <>
               <Dropdown overlay={notificationsMenu} trigger={["hover"]}>
