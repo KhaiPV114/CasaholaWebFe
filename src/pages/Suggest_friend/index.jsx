@@ -118,7 +118,7 @@ const Guess = ({ friend }) => {
               cover={
                 <img
                   alt={profile.fullName}
-                  src={profile.profileImage}
+                  src={profile.profileImage ? profile.profileImage : "/Profile.jpg"}
                   style={{
                     borderTopLeftRadius: "10px",
                     borderTopRightRadius: "10px",

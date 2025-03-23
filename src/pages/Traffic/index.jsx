@@ -22,7 +22,10 @@ const data = [
   { date: "2024-03-18", visits: 19, avgTime: 7 },
   { date: "2024-03-19", visits: 22, avgTime: 8 },
   { date: "2024-03-20", visits: 28, avgTime: 7 },
-  { date: "2024-03-21", visits: 23, avgTime: 6 },
+  { date: "2024-03-21", visits: 23, avgTime: 4 },
+  { date: "2024-03-22", visits: 18, avgTime: 7 },
+  { date: "2024-03-23", visits: 33, avgTime: 9 },
+
 ];
 
 const totalVisits = data.reduce((sum, item) => sum + item.visits, 0);
@@ -30,7 +33,7 @@ const totalDays = data.length;
 const totalVisitTime = data.reduce((sum, item) => sum + item.avgTime * item.visits, 0);
 const avgVisitTimePerDay = Math.round(totalVisitTime / totalDays);
 const avgVisitTimeOverall = Math.round(totalVisitTime / totalVisits);
-const totalRegistrations = 73;
+const totalRegistrations = 99;
 
 const TrafficChart = () => {
   return (
