@@ -22,7 +22,7 @@ const data = [
   { date: "2024-03-18", visits: 19, avgTime: 7 },
   { date: "2024-03-19", visits: 22, avgTime: 8 },
   { date: "2024-03-20", visits: 28, avgTime: 7 },
-  { date: "2024-03-21", visits: 23, avgTime: 4 },
+  { date: "2024-03-21", visits: 30, avgTime: 4 },
   { date: "2024-03-22", visits: 18, avgTime: 7 },
   { date: "2024-03-23", visits: 33, avgTime: 9 },
 
