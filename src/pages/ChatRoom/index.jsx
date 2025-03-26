@@ -55,7 +55,7 @@ const ChatRoom = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, setFilteredContacts]);
+  }, [user]);
 
   const getMsgSource = async (userChoose) => {
     if (!userChoose.status) {
@@ -72,7 +72,7 @@ const ChatRoom = () => {
 
   const setSearchTerm = (key) => {
     const users = userContact.filter((u) =>
-      u.fullName.toLowerCase().includes(key || "")
+      u.fullName.toLowerCase().includes(key.toLowerCase() || "")
     );
 
     setFilteredContacts(users);

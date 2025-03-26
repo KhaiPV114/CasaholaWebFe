@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Input, Select, Button, Upload, Row, Col, Avatar, DatePicker } from "antd";
 import { SaveOutlined, LeftOutlined, HomeOutlined, UploadOutlined } from "@ant-design/icons";
+import { AuthContext } from "@/context/authContext";
 
 const { Option } = Select;
 
 const UserEditForm = () => {
   const [form] = Form.useForm();
+
+  const { user } = useContext(AuthContext);
+
 
   const onFinish = (values) => {
     console.log("Updated user data:", values);
@@ -24,7 +28,7 @@ const UserEditForm = () => {
       <h2 style={{ color: "#F95B01", fontSize: "24px", fontWeight: "bold", marginBottom: 20 }}>Cập Nhật Thông Tin</h2>
       <Row gutter={24} align="middle">
         <Col span={8} style={{ textAlign: "center" }}>
-          <Avatar size={150} src="/path/to/profile-image.jpg" />
+          <Avatar size={150} src={user?.profileImage || "/default-avatar.jpg"} />
           <p style={{ fontWeight: "bold", marginTop: 10 }}>Ảnh Đại diện</p>
           <p>Email: user@example.com</p>
           <p>Họ và tên: Nguyễn Văn A</p>
@@ -38,13 +42,13 @@ const UserEditForm = () => {
               {["Email", "FullName"].map((field) => (
                 <Col span={12} key={field}>
                   <Form.Item label={<span style={{ fontWeight: "bold" }}>{field}</span>} name={field}>
-                    <Input type="text" placeholder={field} style={{ borderRadius: 8 }} />
+                    <Input type="text" placeholder={field} style={{ borderRadius: 8 }}/>
                   </Form.Item>
                 </Col>
               ))}
               <Col span={12}>
                 <Form.Item label={<span style={{ fontWeight: "bold" }}>Ngày sinh</span>} name="Dob">
-                  <DatePicker style={{ width: "100%", borderRadius: 8 }} />
+                  <DatePicker style={{ width: "100%", borderRadius: 8 }}/>
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -66,14 +70,14 @@ const UserEditForm = () => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item label={<span style={{ fontWeight: "bold" }}>Ảnh CMND</span>} name="IdentificationImage">
+                <Form.Item label={<span style={{ fontWeight: "bold" }}>Ảnh Profile</span>} name="IdentificationImage">
                   <Upload>
                     <Button icon={<UploadOutlined />}>Tải lên</Button>
                   </Upload>
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item label={<span style={{ fontWeight: "bold" }}>Ảnh Đại diện</span>} name="ProfileImage">
+                <Form.Item label={<span style={{ fontWeight: "bold" }}>Ảnh Icon</span>} name="ProfileImage">
                   <Upload>
                     <Button icon={<UploadOutlined />}>Tải lên</Button>
                   </Upload>

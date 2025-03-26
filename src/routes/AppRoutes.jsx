@@ -1,3 +1,4 @@
+import { AuthContext } from "@/context/authContext";
 import MainLayout from "@/layouts/MainLayout";
 import About from "@/pages/About";
 import ChangePassword from "@/pages/ChangePassword";
@@ -17,16 +18,24 @@ import ResetPassword from "@/pages/ResetPassword";
 import RoommatePreferenceForm from "@/pages/RoomPreference";
 import TestCharacter from "@/pages/TestCharacter";
 import ResultPage from "@/pages/TestResult";
+import TrafficChart from "@/pages/Traffic";
 import UpdateCriteriaPage from "@/pages/UpdateCriteria";
 import UserEditForm from "@/pages/UserInfor";
 import LikedUsers from "@/pages/UserLikeMeList";
-import UserManagement from "@/pages/UserManagement";
+// import UserManagement from "@/pages/UserManagement";
 import MatchedUsers from "@/pages/UserMatchedList";
 import VnPayReturn from "@/pages/vnpay";
 import YourPreferenceForm from "@/pages/YourPreference";
+import { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const AppRoutes = () => {
+  
+  const{user} = useContext(AuthContext);
+    console.log(user);
+
+
+
   return (
     <BrowserRouter>
       <Routes>
@@ -41,7 +50,6 @@ const AppRoutes = () => {
           <Route path="package" element={<Package />} />
           <Route path="roompreference" element={<RoommatePreferenceForm />} />
           <Route path="chatroom" element={<ChatRoom />} />
-          <Route path="usermanagement" element={<UserManagement />} />
           <Route path="updatecriteria" element={<UpdateCriteriaPage />} />
           <Route path="userinfo" element={<UserEditForm />} />
           <Route path="usermatchedlist" element={<MatchedUsers />} />
@@ -49,6 +57,9 @@ const AppRoutes = () => {
           <Route path="payment-success" element={<PaymentSuccess />} />
           <Route path="payment-failure" element={<PaymentFailure />} />
           <Route path="payment-invoice" element={<PaymentInvoice />} />
+          <Route path="traffic" element={<TrafficChart/>}></Route>
+           {/* Kiểm tra role ADMIN trước khi hiển thị trang admin */}
+           {/* {user?.role === "ADMIN" && <Route path="/admin" element={<UserManagement />} />} */}
         </Route>
         <Route path="yourpreference" element={<YourPreferenceForm />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
@@ -60,6 +71,7 @@ const AppRoutes = () => {
         <Route path="/403" element={<>Bi dan</>} />
         <Route path="/401" element={<>Dang nhap di</>} />
         <Route path="/500" element={<>He thong bi loi</>} />
+        
       </Routes>
     </BrowserRouter>
   );

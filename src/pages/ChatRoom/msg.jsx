@@ -53,7 +53,7 @@ export const Msg = ({ sendUid, receiveUid, fetchData }) => {
           { sender: data.sender, text: data.message },
         ]);
       }
-      fetchData();
+      fetchData(new URLSearchParams(`?chooseUid=${receiveUid}`));
     };
 
     socket.on(`${sendUid}`, handleNewMessage);
@@ -77,9 +77,14 @@ export const Msg = ({ sendUid, receiveUid, fetchData }) => {
     }
     if (input.trim()) {
       setMessages([...messages, { sender: "Bạn", text: input }]);
-      socket.emit("createChat", { receiveUid: receiveUid, message: input });
-      setInput("");
-      fetchData();
+      socket.emit(
+        "createChat",
+        { receiveUid: receiveUid, message: input },
+        () => {
+          setInput("");
+          fetchData(new URLSearchParams(`?chooseUid=${receiveUid}`));
+        }
+      );
     }
   };
 

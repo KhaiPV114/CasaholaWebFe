@@ -56,6 +56,19 @@ export const UserProvider = ({ children }) => {
       });
   };
 
+  const getAccount = async () => {
+    if (!user || !user.id) return;
+  
+    try {
+      const response = await client.get(`/account/${user.id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi lấy thông tin tài khoản:", error);
+      return null;
+    }
+  };
+  
+
   return (
     <AuthContext.Provider
       value={{
@@ -70,6 +83,7 @@ export const UserProvider = ({ children }) => {
         setMatchs,
         chats,
         setChats,
+        getAccount
       }}
     >
       {children}

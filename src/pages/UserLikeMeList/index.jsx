@@ -77,7 +77,7 @@ const LikedUsers = () => {
             cover={
               <img
                 alt={user.fullName}
-                src={user.profileImage}
+                src={user.profileImage || "/Profile.jpg"}
                 style={{
                   borderTopLeftRadius: "10px",
                   borderTopRightRadius: "10px",
@@ -95,6 +95,7 @@ const LikedUsers = () => {
             <p style={{ fontSize: "12px", color: "#666" }}>
               Tháng {new Date(user.dob).getMonth()} -{" "}
               {new Date(user.dob).getFullYear()}
+              {/* {Number(new Date().getFullYear - new Date(user.dob).getFullYear) } */}
             </p>
             <p style={{ fontSize: "12px", color: "#999" }}>{user.interests}</p>
           </Card>

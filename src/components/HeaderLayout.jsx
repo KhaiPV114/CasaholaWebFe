@@ -30,7 +30,7 @@ const packages = {
       GOLD
     </Button>
   ),
-  PREMIUM: (
+  PLATINUM: (
     <Button color="danger" variant="outlined">
       PREMIUM
     </Button>
@@ -39,13 +39,20 @@ const packages = {
 
 export default function HeaderLayout() {
   const { user } = useContext(AuthContext);
+  
+  console.log("package: " + user);
+  
 
-  // Menu cho Avatar (Hồ sơ cá nhân & Đăng xuất)
   const profileMenu = (
     <Menu>
       <Menu.Item key="profile" icon={<UserOutlined />}>
         <Link to={"/userinfo"}>Hồ sơ cá nhân</Link>
       </Menu.Item>
+      {user?.role === "ADMIN" && (
+        <Menu.Item key="adminpage" icon={<OrderedListOutlined />}>
+          <Link to={"/admin"}>Admin Page</Link>
+        </Menu.Item>
+      )}
       <Menu.Item key="listcriteria" icon={<OrderedListOutlined />}>
         <Link to={"/updatecriteria"}>Sửa tiêu chí cá nhân</Link>
       </Menu.Item>
@@ -55,7 +62,6 @@ export default function HeaderLayout() {
     </Menu>
   );
 
-  // Menu cho Thông báo
   const notificationsMenu = (
     <Menu>
       <Menu.Item key="1">Bạn có thông báo mới</Menu.Item>
@@ -95,26 +101,31 @@ export default function HeaderLayout() {
           prefix={<SearchOutlined style={{ color: "#ff6600" }} />}
         />
         <Space size="middle" align="center">
-          {/* tuỳ theo gọi lấy button khác */}
-          {user?.packageType && packages[user.packageType]}
-          <Dropdown overlay={notificationsMenu} trigger={["hover"]}>
-            <Badge count={2}>
-              <BellOutlined
-                style={{
-                  fontSize: "20px",
-                  color: "#ff6600",
-                  cursor: "pointer",
-                }}
-              />
-            </Badge>
-          </Dropdown>
-          <Dropdown overlay={profileMenu} trigger={["hover"]}>
-            <Avatar
-              size={32}
-              icon={<UserOutlined />}
-              style={{ backgroundColor: "#d9d9d9", cursor: "pointer" }}
-            />
-          </Dropdown>
+        {user?.packageType && packages[user.packageType]}
+          {user && (
+            <>
+              <Dropdown overlay={notificationsMenu} trigger={["hover"]}>
+                <Badge count={2}>
+                  <BellOutlined
+                    style={{
+                      fontSize: "20px",
+                      color: "#ff6600",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Badge>
+              </Dropdown>
+              <Dropdown overlay={profileMenu} trigger={["hover"]}>
+                <Avatar
+                  size={32}
+                  icon={<UserOutlined />}
+                  src={user?.profileImage || "/default-avatar.jpg"} 
+                  style={{ backgroundColor: "#d9d9d9", cursor: "pointer" }}
+                />
+              </Dropdown>
+            </>
+          )}
+
         </Space>
       </Flex>
     </Header>
